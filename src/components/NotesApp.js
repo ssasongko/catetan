@@ -1,12 +1,14 @@
 import React from 'react';
+import NotesBody from './NotesBody';
+import NotesHeader from './NotesHeader';
 
-class NotesApp extends React.Component {
-    render(){
-        return(
-            <div>
-            </div>
-        )
-    }
+const NotesApp = () => {
+    return(
+        <>
+            <NotesHeader/>
+            <NotesBody/>
+        </>
+    )
 }
 
 export default NotesApp;

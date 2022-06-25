@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="aplikasi submission dicoding kelas dicoding front end web pemula">
+    <meta name="author" content="Nur Sasongko">
+
+    <title>Your Notes Apps | Nur Sasongko</title>
+
+    <link rel="stylesheet" href="styles/helpers.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header class="col-12">
+        <div class="welcome bg-primary d-flex justify-content-center align-items-center text-center p-1">
+            <h1 class="font-weight-bolder">Your Notes Apps</h1>
+        </div>
+    </header>
+
+    <main class="col-8 d-flex flex-wrap justify-content-between mx-auto mt-2">
+        <section class="col-12">
+            <div class="position-relative note-search">
+                <input class="w-100 border-none note-search__search-input" type="text" placeholder="Find your notes here...."/>
+                <i class="position-absolute note-search__search-icon"><img src="./icons/search.svg" alt="Search"/></i>
+                <i class="position-absolute note-search__clear-button is_hidden"><img src="./icons/cancel.svg" alt="Search"/></i>
+            </div>
+        </section>
+
+        <section class="col-12 mt-2">
+            <div class="d-flex justify-content-between notes-tab">
+                <div>
+                    <button class="notes-tab__tab-button active" onclick="openCity(event, 'Notes')">Notes</button>
+                    <button class="notes-tab__tab-button" onclick="openCity(event, 'Paris')">Archived Notes</button>
+                </div>
+                <button class="notes-tab__tab-button" onclick="openCity(event, 'AddNotes')">Add Notes</button>
+            </div>
+            
+            <div id="Notes" class="tabcontent">
+                <div class="notes-list p-2">
+                    <div class="note-item">
+                        <div class="p-1 note-item__content">
+                            <h3 class="note-item__title">Babel</h3>
+                            <p class="note-item__date">Kamis, 14 April 2022</p>
+                            <p>Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.</p>
+                        </div>
+                        <div class="note-item__action d-flex">
+                            <button class="note-item__delete-button">Delete</button>
+                            <button class="note-item__archive-button">Archive</button>
+                        </div>
+                    </div> 
+                    <div class="note-item">
+                        <div class="p-1 note-item__content">
+                            <h3 class="note-item__title">Babel</h3>
+                            <p class="note-item__date">Kamis, 14 April 2022</p>
+                            <p>Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.</p>
+                        </div>
+                        <div class="note-item__action d-flex">
+                            <button class="note-item__delete-button">Delete</button>
+                            <button class="note-item__archive-button">Archive</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            
+            <div id="Paris" class="tabcontent">
+                <div class="notes-list p-2">
+                    <div class="note-item">
+                        <div class="p-1 note-item__content">
+                            <h3 class="note-item__title">Babel</h3>
+                            <p class="note-item__date">Kamis, 14 April 2022</p>
+                            <p>Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks
+                                yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks
+                                terbaru termasuk sintaks JSX.</p>
+                        </div>
+                        <div class="note-item__action d-flex">
+                            <button class="note-item__delete-button">Delete</button>
+                            <button class="note-item__archive-button">Archive</button>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="p-1 note-item__content">
+                            <h3 class="note-item__title">Babel</h3>
+                            <p class="note-item__date">Kamis, 14 April 2022</p>
+                            <p>Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks
+                                yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks
+                                terbaru termasuk sintaks JSX.</p>
+                        </div>
+                        <div class="note-item__action d-flex">
+                            <button class="note-item__delete-button">Delete</button>
+                            <button class="note-item__archive-button">Archive</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="AddNotes" class="tabcontent">
+                <div class="note-create p-2">
+                    <form class="p-1">
+                        <h3 class="note-create__title">New Note</h3>
+                        <p class="mt-1 text-right note-create__span">Sisa Karakter : 50</p>
+                        <input class="w-100 mt-1 p-1 note-create__title-input" type="text" placeholder="Title..."/>
+                        <textarea class="w-100 mt-1 p-1 note-create__content-textarea" cols="30" rows="10" placeholder="Content...."></textarea>
+                        <button class="w-100 mt-1 p-1" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+        
+    <script>
+        
+        const searchInput = document.querySelector('.note-search__search-input');
+        const clearButton = document.querySelector('.note-search__clear-button');
+        
+        searchInput.addEventListener('keyup', ()=>{
+            if(searchInput.value.length === 0){
+                clearButton.classList.add('is_hidden');
+            }
+            else{
+                clearButton.classList.remove('is_hidden');
+            }
+        })
+
+        clearButton.addEventListener('click', ()=>{
+            searchInput.value = "";
+            clearButton.classList.add('is_hidden');
+        })
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("notes-tab__tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        openCity(event, 'AddNotes')
+    </script>
+    <script src="assets/script/script.js"></script>
+</body>
+</html>

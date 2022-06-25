@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import NotesApp from './components/NotesApp';
 
 // import style
+import './styles/helpers.css';
 import './styles/style.css';
 
 const root = createRoot(document.getElementById('root'));
