@@ -1,23 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
 }
 
-.bg-primary{background-color: #F6E3C5;}
+.bg-primary{background-color: #ffeb3b;}
 
-header .welcome{
+header {
+
+  .welcome{
     height: 15vh;
-}
 
-header .welcome h1{
-    font-family: 'Comfortaa', cursive;    
-    font-size: 2em;
+    h1{
+      font-family: 'Comfortaa', cursive;    
+      font-size: 2rem;
+    }
+  }
+  
 }
 
 .note-search{
@@ -37,11 +42,11 @@ header .welcome h1{
 }
 
 .note-search .note-search__search-icon{
-    left: 0;top: 2px; padding: 10px;
+    left: 0;top: 7px; padding: 10px;
 }
 
 .note-search .note-search__clear-button{
-    right: 0;top: 2px; padding: 10px;
+    right: 0;top: px; padding: 10px;
 }
 
 .notes-tab {
@@ -155,7 +160,7 @@ header .welcome h1{
 .note-item__date {
   font-size: 12px;
   margin-bottom: 8px;
-  color: #aaa;
+  // color: #aaa;
 }
 
 .note-item__delete-button,.note-item__archive-button {
@@ -199,4 +204,29 @@ header .welcome h1{
   .notes-list {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.tab-content{
+    border: solid lightgray;
+    border-width: 0px 2px 2px 2px;
+}
+
+.tab-list {
+  border-bottom: 2px solid #ccc;
+  padding-left: 0;
+  
+}
+
+.tab-list-item {
+  list-style: none;
+  margin-bottom: -2px;
+
+  /* padding: 1rem 1rem; */
+}
+
+.tab-list-active {
+  font-weight: 800;
+  border: solid lightgray;
+  border-width: 2px 2px 0 2px;
+  background-color: white;
 }

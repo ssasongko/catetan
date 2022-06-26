@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NotesSearch = () => {
+const Search = () => {
     return(
         <section className="col-12 mt-1">
             <div className="position-relative note-search">
@@ -12,4 +12,4 @@ const NotesSearch = () => {
     )
 }
 
-export default NotesSearch;
+export default Search;

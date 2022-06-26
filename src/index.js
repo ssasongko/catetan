@@ -1,10 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import NotesApp from './components/NotesApp';
+import App from './components/App';
 
-// import style
-import './styles/helpers.css';
-import './styles/style.css';
+import './styles/css/helpers.css';
+import './styles/css/style.css';
 
 const root = createRoot(document.getElementById('root'));
-root.render(<NotesApp/>);
+root.render(<App/>);

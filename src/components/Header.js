@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NotesHeader = () => {
+const Header = () => {
     return(
         <header className="col-12">
             <div className="welcome bg-primary d-flex justify-content-center align-items-center text-center p-1">
@@ -10,4 +10,4 @@ const NotesHeader = () => {
     )
 }
 
-export default NotesHeader;
+export default Header;

@@ -2,7 +2,7 @@ import React from 'react';
 import { getInitialData, showFormattedDate } from '../utils';
 import NotesInput from './NotesInput';
 import NotesList from './NotesList';
-import NotesSearch from './NotesSearch';
+import NotesSearch from './Search';
 import NotesTab from './NotesTab';
 
 class NotesBody extends React.Component {

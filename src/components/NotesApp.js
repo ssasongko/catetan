@@ -4,10 +4,11 @@ import NotesHeader from './NotesHeader';
 
 const NotesApp = () => {
     return(
-        <>
-            <NotesHeader/>
-            <NotesBody/>
-        </>
+        <main>
+            <H
+            {/* <NotesHeader/>
+            <NotesBody/> */}
+        </main>
     )
 }
 
