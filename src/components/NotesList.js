@@ -1,44 +1,62 @@
 import React, {Component} from 'react';
 import NotesItem from './NotesItem';
+import { getInitialData } from '../utils';
 
 class NotesList extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            notes: this.props.notes,
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         notes: this.props.notes,
+            // notes: getInitialData()
             // archived: this.props.isArchived
-        }
-        this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
-    }
+        // }
+    //     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
+    //     this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
+    // }
 
-    onDeleteEventHandler(id){
-        const {
-            onDelete
-        } = this.props
-        console.log(onDelete);
-        onDelete(id)
-    }
-    
+    // onDeleteEventHandler(id){
+    //     const {props:{onDeleteEventHandler}} = this;
+    //     onDeleteEventHandler({title, content});
+    // }
     
     render(){
          const {
-            onDeleteEventHandler,
-            state: {
+             props: {
+                onArchive,
+                onDelete,
                 notes,
             }
         } = this;
 
         return(
+            <div className='border mt-2 p-2'>
+            <p>Active Notes</p>
             <div className="notes-list p-2">
-                {notes.map((note) => {
+                {notes.filter(note => (note.archived === false)).map((note) => {
                     return(
                         <NotesItem 
                             key={note.id} 
                             note={note} 
-                            onDelete={onDeleteEventHandler}
+                            onDelete={onDelete}
+                            onArchive={onArchive}
                         />
                     )
-              })}
+                })}
+            </div>
+            
+            <p>Archived</p>
+            <div className="notes-list p-2">
+                {notes.filter(note => (note.archived === true)).map((note) => {
+                    return(
+                        <NotesItem 
+                            key={note.id} 
+                            note={note} 
+                            onDelete={onDelete}
+                            onArchive={onArchive}
+                        />
+                    )
+                })}
+            </div>
             </div>
         )
     }
