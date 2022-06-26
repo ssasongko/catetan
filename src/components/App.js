@@ -20,7 +20,6 @@ class App extends Component {
         const {notes} = this.state;
         const filtered = notes.filter(note => note.id !== id);
         this.setState({ notes: filtered });
-        this.forceUpdate()
     }
 
     render(){

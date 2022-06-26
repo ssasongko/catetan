@@ -23,7 +23,7 @@ class NotesList extends Component{
     render(){
          const {
             onDeleteEventHandler,
-            state: {
+            props: {
                 notes,
             }
         } = this;
