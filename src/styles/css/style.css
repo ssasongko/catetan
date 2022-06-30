@@ -39,13 +39,13 @@ header .welcome h1 {
 
 .note-search .note-search__search-icon {
   left: 0;
-  top: 7px;
+  top: 6px;
   padding: 10px;
 }
 
 .note-search .note-search__clear-button {
   right: 0;
-  top: px;
+  top: 6px;
   padding: 10px;
 }
 

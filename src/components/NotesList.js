@@ -25,14 +25,24 @@ class NotesList extends Component{
                 onArchive,
                 onDelete,
                 notes,
+                search,
             }
         } = this;
+
+        console.log(search)
 
         return(
             <div className='border mt-2 p-2'>
             <p>Active Notes</p>
             <div className="notes-list p-2">
-                {notes.filter(note => (note.archived === false)).map((note) => {
+                {notes.filter((note) => {
+            if(search === ''){
+                return note;
+            }
+            else{
+                return note.title.toLowerCase().includes(search);
+            }
+        }).filter(note =>(note.archived === false)).map((note) => {
                     return(
                         <NotesItem 
                             key={note.id} 

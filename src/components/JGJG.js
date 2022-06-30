@@ -1,4 +1,4 @@
-import React, {Component,} from 'react';
+import React, {Component, useState} from 'react';
 import Header from './Header';
 import Search from './Search';
 import Tabs from './Tabs';
@@ -6,21 +6,26 @@ import { getInitialData, showFormattedDate } from '../utils';
 import NotesList from './NotesList';
 import NotesInput from './NotesInput';
 
-class App extends Component {
+// class App extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            notes: getInitialData(),
-            search: ''
-        }
-        this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
-        this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
-        this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
-        this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
-    }
+const App = () =>  {
 
-    onSearchEventHandler = (find) => {
+    const [notes] = useState(getInitialData());
+    const [search] = useState('');
+
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         notes: getInitialData(),
+    //         search: ''
+    //     }
+    //     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
+    //     this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
+    //     this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
+    //     this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
+    // }
+
+    const onSearchEventHandler = (find) => {
         // const {notes} = this.state;
 
         // const filteredData = notes.filter((note) => {
@@ -35,13 +40,13 @@ class App extends Component {
         console.log(`find ${find}`);
     }
 
-    onDeleteEventHandler(id){
+    const onDeleteEventHandler = (id) => {
         const {notes} = this.state;
         const filtered = notes.filter(note => note.id !== id);
         this.setState({ notes: filtered });
     }
     
-    onArchiveEventHandler(id, isArchived){
+    const onArchiveEventHandler = (id, isArchived) => {
         const {notes} = this.state;
         const index = notes.findIndex((note) => note.id === id);
         const archived = isArchived;
@@ -53,7 +58,7 @@ class App extends Component {
         this.setState({ notes });
     }
 
-    onAddNotesEventHandler({title,content}){
+    const onAddNotesEventHandler = ({title,content}) => {
         const date = new Date();
 
         this.setState((prevState) => {
@@ -70,21 +75,18 @@ class App extends Component {
                 ]
             }
         })
-
-        console.log(this.state.notes)
     }
 
-    render(){
-        const {
-            onAddNotesEventHandler,
-            onDeleteEventHandler,
-            onArchiveEventHandler,
-            onSearchEventHandler,
-            state: {
-                notes,
-                search,
-            }
-        } = this;
+        // const {
+        //     onAddNotesEventHandler,
+        //     onDeleteEventHandler,
+        //     onArchiveEventHandler,
+        //     onSearchEventHandler,
+        //     state: {
+        //         notes,
+        //         search,
+        //     }
+        // } = this;
 
         return(
             <main>
@@ -97,7 +99,6 @@ class App extends Component {
             <footer>Nur Sasongko</footer>
             </main>
         )
-    }
 }
 
 export default App;
