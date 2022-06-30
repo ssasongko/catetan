@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +16,7 @@
 header .welcome {
   height: 15vh;
 }
+
 header .welcome h1 {
   font-family: "Comfortaa", cursive;
   font-size: 2rem;
@@ -39,13 +40,13 @@ header .welcome h1 {
 
 .note-search .note-search__search-icon {
   left: 0;
-  top: 7px;
+  top: 6px;
   padding: 10px;
 }
 
 .note-search .note-search__clear-button {
   right: 0;
-  top: px;
+  top: 6px;
   padding: 10px;
 }
 
@@ -75,7 +76,6 @@ header .welcome h1 {
 }
 
 .tabcontent {
-  /* display: none; */
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
@@ -84,17 +84,6 @@ header .welcome h1 {
 .tabButton {
   text-decoration: none;
   color: black;
-}
-
-.active {
-  font-weight: 800;
-}
-
-.input[type=submit] {
-  height: auto;
-  background-color: #F6E3C5;
-  border: none;
-  cursor: pointer;
 }
 
 .border-light {
@@ -126,10 +115,9 @@ header .welcome h1 {
 
 .notes-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(min-content, max-content);
   gap: 2em;
-  margin-bottom: 2em;
 }
 
 .notes-list__empty-message {
@@ -139,14 +127,13 @@ header .welcome h1 {
 
 .note-item {
   border: 1px solid #aaa;
-  /* border-radius: 4px; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-color: lightgoldenrodyellow;
 }
 
 .note-item__content {
-  /* padding: 12px; */
   flex: 1;
 }
 
@@ -162,7 +149,8 @@ header .welcome h1 {
   margin-bottom: 8px;
 }
 
-.note-item__delete-button, .note-item__archive-button {
+.note-item__delete-button,
+.note-item__archive-button {
   display: block;
   width: 100%;
   background-color: transparent;
@@ -174,20 +162,21 @@ header .welcome h1 {
 }
 
 .note-item__delete-button {
-  border-right: 1px solid #aaa;
-  /* color: #ff5f52; */
+  background-color: #f15223;
+  color: white;
 }
 
 .note-item__archive-button {
-  color: #fff263;
+  background-color: #2d9e64;
+  color: white;
 }
 
 .note-item__archive-button:hover {
-  color: #c49000;
+  color: lightgreen;
 }
 
 .note-item__delete-button:hover {
-  color: #b00020;
+  color: lightcoral;
 }
 
 .note-create__title-input {
@@ -199,11 +188,11 @@ header .welcome h1 {
   outline: none;
 }
 
-@media only screen and (min-width: 500px) {
-  .notes-list {
-    grid-template-columns: 1fr 1fr;
-  }
+.note-create__content-textarea:focus{
+  outline: none;
 }
+
+
 .tab-content {
   border: solid lightgray;
   border-width: 0px 2px 2px 2px;
@@ -217,7 +206,7 @@ header .welcome h1 {
 .tab-list-item {
   list-style: none;
   margin-bottom: -2px;
-  /* padding: 1rem 1rem; */
+  cursor: pointer;
 }
 
 .tab-list-active {
@@ -225,6 +214,22 @@ header .welcome h1 {
   border: solid lightgray;
   border-width: 2px 2px 0 2px;
   background-color: white;
+  background-color: #ffeb3b;
 }
 
-/*# sourceMappingURL=style.css.map */
+.message-error {
+  color: red;
+  font-size: 13px;
+}
+
+.input-error{
+  border: 1px solid red;
+}
+
+.submit-button{
+  background-color: #ffeb3b;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
