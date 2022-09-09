@@ -1,10 +1,10 @@
 import React, {Component,} from 'react';
-import Header from './Header';
-import Search from './Search';
-import Tabs from './Tabs';
-import { getInitialData } from '../utils';
-import NotesList from './NotesList';
-import NotesInput from './NotesInput';
+import Header from './components/Header';
+import Search from './components/Search';
+import Tabs from './components/Tabs';
+import { getInitialData } from './utils';
+import NotesList from './components/NotesList';
+import NotesInput from './components/NotesInput';
 
 class App extends Component {
 
