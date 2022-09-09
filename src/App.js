@@ -8,6 +8,7 @@ import NotesInput from './components/NotesInput';
 import Footer from './components/layouts/Footer';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import NoMatchPage from './pages/NoMatchPage';
+import DetailsNotes from './pages/DetailsNotesPage';
 
 class App extends Component {
 
@@ -80,38 +81,72 @@ class App extends Component {
 		const activeNotes = notes.filter(note => (note.archived === false));
 
 		return (
-			<main>
+			<main className='container-fluid'>
 				<Header />
-					<Routes>
-						<Route path="/" element={
+				<Routes>
+					{/* home */}
+					<Route path='/' element={<Navigate to='/notes' />} />
+
+					{/* routes notes */}
+					{/* <Route path='/notes' element={
 							<article className='col-8 d-flex flex-wrap justify-content-between mx-auto my-2'>
 								<Search onSearch={onSearchEventHandler} />
 								<Tabs>
-									<div label="Notes">
+									<div label='Notes'>
 										{
 											(activeNotes.length > 0)
 												? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-												: "Active note is empty"
+												: 'Active note is empty'
 										}
 									</div>
-									<div label="Archived">
+									<div label='Archived'>
 										{
 											(archivedNotes.length > 0)
 												? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-												: "Archived note is empty"
+												: 'Archived note is empty'
 										}
-	
+
 									</div>
-									<div label="Add">
+									<div label='Add'>
 										<NotesInput onAddNotes={onAddNotesEventHandler} />
 									</div>
 								</Tabs>
 							</article>
-						}/>
-						<Route path='/not-found' element={<NoMatchPage/>}/>
-						<Route path="*" element={<Navigate to="/not-found" />} />
-					</Routes>
-					
+						}/> */}
+					<Route path='/notes' element={
+						<article className='w-full md:w-2/3 px-6 flex flex-wrap justify-center mx-auto my-2'>
+							<Search onSearch={onSearchEventHandler} />
+							<Tabs>
+								<div label='Notes'>
+									{
+										(activeNotes.length > 0)
+											? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
+											: 'Active note is empty'
+									}
+								</div>
+								<div label='Archived'>
+									{
+										(archivedNotes.length > 0)
+											? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
+											: 'Archived note is empty'
+									}
+
+								</div>
+								<div label='Add'>
+									<NotesInput onAddNotes={onAddNotesEventHandler} />
+								</div>
+							</Tabs>
+						</article>
+					} />
+					<Route path='/notes/:id' element={<DetailsNotes />} />
+					<Route path='/notes/archived' element={''} />
+					<Route path='/notes/new' element={''} />
+
+					{/* invalid routes, redirect to 404 */}
+					<Route path='*' element={<Navigate to='/not-found' />} />
+					<Route path='/not-found' element={<NoMatchPage />} />
+				</Routes>
+
 				{/* <Footer /> */}
 			</main>
 		)
