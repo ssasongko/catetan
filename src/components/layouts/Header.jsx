@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header className="w-full">
-      <div className="welcome bg-primary d-flex justify-content-center align-items-center text-center p-1">
-        <h1 className="font-weight-bolder">Catetan</h1>
-      </div>
+    <header className='w-full h-16 bg-primary flex justify-center items-center'>
+      <Link to='/'>
+        <h1 className='font-weight-bolder text-4xl comfortaa'>Catetan</h1>
+      </Link>
     </header>
   )
 }

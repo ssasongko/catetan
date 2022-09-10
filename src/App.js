@@ -106,6 +106,8 @@ class App extends Component {
 		return (
 			<main className='container-fluid'>
 				<Header />
+
+				<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0'>
 				<Routes>
 					{/* main routes */}
 					<Route path='/' element={<Navigate to='/notes' />} />
@@ -125,6 +127,7 @@ class App extends Component {
 					<Route path='*' element={<Navigate to='/not-found' />} />
 					<Route path='/not-found' element={<NoMatchPage />} />
 				</Routes>
+				</section>
 
 				{/* <Footer /> */}
 			</main>

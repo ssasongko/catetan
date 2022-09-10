@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import HomeLink from '../components/HomeLink';
+import { useNavigate } from 'react-router-dom';
+
+const AddNotesPageWrapper = ({ onAddNotes }) => {
+  const navigate = useNavigate();
+
+  return <AddNotesPage navigate={navigate} onAddNotes={onAddNotes} />
+}
 
 class AddNotesPage extends Component {
   constructor(props) {
@@ -32,7 +39,7 @@ class AddNotesPage extends Component {
   }
 
   onContentChangeEventHandler(event) {
-    let val = event.target.value;
+    let val = event.target.textContent;
 
     this.setState({
       content: val,
@@ -43,7 +50,7 @@ class AddNotesPage extends Component {
   onSubmitEventHandler(event) {
     event.preventDefault();
 
-    const { state: { title, content, titleMaxLength }, props: { onAddNotes } } = this;
+    const { state: { title, content, titleMaxLength }, props: { onAddNotes, navigate } } = this;
 
     if (title === "" || content === "") {
       this.setState({
@@ -60,6 +67,8 @@ class AddNotesPage extends Component {
       content: '',
       titleCount: titleMaxLength
     });
+
+    navigate('/')
   }
 
   render() {
@@ -77,20 +86,29 @@ class AddNotesPage extends Component {
     } = this;
 
     return (
-      <div className="w-100 note-create" onSubmit={onSubmitEventHandler}>
-        <form className="">
+      <div className="w-full note-create border border-[#aaa] p-6">
+        <form className='mb-3' onSubmit={onSubmitEventHandler}>
           <p className="text-right note-create__span">remaining chars : {titleCount}</p>
-          <input className={`w-100 mt-1 p-1 note-create__title-input ${(boolTitle) ? '' : 'input-error'}`} type="text" placeholder="Title..." onChange={onTitleChangeEventHandler} value={title} />
-          <span className={`message-error ${(boolTitle) ? 'is_hidden' : ''}`}>The title field is required</span>
-          <textarea className={`w-100 mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} cols="30" rows="5" placeholder="Content...." onChange={onContentChangeEventHandler} value={content}></textarea>
-          <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
-          <button className="w-100 mt-1 p-1 submit-button" type="submit">Submit</button>
-        </form>
 
-        <Link to="/notes">Back to Home</Link>
+          <div>
+            <label> Title:</label>
+            <input className={`w-full border mt-1 p-1 note-create__title-input ${(boolTitle) ? '' : 'input-error'}`} type="text" onChange={onTitleChangeEventHandler} value={title} />
+            <label className={`message-error ${(boolTitle) ? 'is_hidden' : ''}`}>The title field is required</label>
+          </div>
+
+          <div className='mt-5'>
+            <label>Notes: </label>
+            <div className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} onInput={onContentChangeEventHandler} contentEditable ></div>
+            <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
+          </div>
+
+          {/* <textarea className={`w-full border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} cols="30" rows="5" placeholder="Content...." onChange={onContentChangeEventHandler} value={content}></textarea> */}
+          <button className="w-full mt-5 p-1 submit-button" type="submit">Submit</button>
+        </form>
+        <HomeLink />
       </div>
     )
   }
 }
 
-export default AddNotesPage;
+export default AddNotesPageWrapper;

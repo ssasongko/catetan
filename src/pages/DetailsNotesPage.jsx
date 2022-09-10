@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { useParams } from 'react-router-dom'
+import HomeLink from '../components/HomeLink';
 
 import { getNote } from '../utils/local-data';
 
@@ -21,7 +22,7 @@ class DetailsNotesPage extends Component {
     const {note} = this.state
     
     return (
-      <div>
+      <div className='w-full note-create border border-[#aaa] p-6'>
         {note &&
           <div className='w-1/2 mx-auto'>
             <p>{note.id}</p>
@@ -36,6 +37,8 @@ class DetailsNotesPage extends Component {
         {!note &&
           <p>Note are not found</p>
         }
+
+        <HomeLink/>
       </div>
     )
   }

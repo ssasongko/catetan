@@ -13,17 +13,12 @@
   font-size: 1rem;
 }
 
-.bg-primary {
+/* .bg-primary {
   background-color: #ffeb3b;
-}
+} */
 
-header .welcome {
-  height: 15vh;
-}
-
-header .welcome h1 {
+.comfortaa {
   font-family: "Comfortaa", cursive;
-  font-size: 2rem;
 }
 
 .note-search {

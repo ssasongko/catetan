@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { IoAddCircle } from "react-icons/io5";
+
+// components
 import NotesList from '../components/NotesList'
 import Search from '../components/Search'
 import Tabs from '../components/Tabs'
@@ -9,27 +13,39 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEv
 	const activeNotes = notes.filter(note => (note.archived === false));
 
   return (
-    <article className='w-full md:w-2/3 px-6 flex flex-wrap justify-center mx-auto my-2'>
+    <article className='w-full flex flex-col gap-5 flex-wrap'>
+      <Link to="/notes/new" className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
+        <IoAddCircle color="black" />
+        <span>Add New Notes</span>
+      </Link>
       <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} />
-      <Link to="/notes/new" className='ml-auto mt-3'>Add</Link>
       <Tabs>
         <div label='Notes'>
           {
             (activeNotes.length > 0)
               ? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-              : 'Active note is empty'
+              : 'Note is empty'
           }
         </div>
         <div label='Archived'>
           {
             (archivedNotes.length > 0)
               ? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-              : 'Archived note is empty'
+              : 'There is no archived note here'
           }
         </div>
       </Tabs>
     </article>
   )
+}
+
+ListNotesPage.propTypes = {
+  onSearchEventHandler: PropTypes.func.isRequired,
+  onDeleteEventHandler: PropTypes.func.isRequired,
+  onArchiveEventHandler: PropTypes.func.isRequired,
+  onKeywordChangeEventHandler: PropTypes.func.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  search: PropTypes.string.isRequired
 }
 
 export default ListNotesPage

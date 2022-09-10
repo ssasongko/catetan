@@ -36,7 +36,7 @@ class Search extends Component{
         } = this;
 
         return(
-            <section className="col-12 mt-1">
+            <section className="col-12">
                 <div className="position-relative note-search">
                     <input className="w-100 border-none note-search__search-input" type="text" placeholder="Find your notes here...." onChange={onSearchChangeHandler} value={search}/>
                     <i className="position-absolute note-search__search-icon"><img src="./icons/search.svg" alt="Search"/></i>

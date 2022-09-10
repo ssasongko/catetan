@@ -26,7 +26,7 @@ class Tabs extends Component{
         } = this;
 
         return(
-            <div className='w-100 mt-3 tabs'>
+            <div className='w-full tabs'>
                 <ol className='tab-list d-flex justify-content-between'>
                     {children.map((child) => {
                         const {label} = child.props;

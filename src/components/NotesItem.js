@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import parser from 'html-react-parser';
+
 import { showFormattedDate } from './../utils';
 import ActiveButton from './ActiveButton';
 import ArchiveButton from './ArchiveButton';
@@ -25,7 +27,9 @@ class NotesItem extends Component {
 					<Link to={`/notes/${note.id}`}>
 						<h3 className="note-item__title font-bold">{note.title}</h3>
 						<span className="note-item__date">{showFormattedDate(note.createdAt)}</span>
-						<p className='mt-3'>{note.body}</p>
+						<div className='mt-3'>
+							{parser(note.body)}
+						</div>
 					</Link>
 				</div>
 				<div className="note-item__action flex">
