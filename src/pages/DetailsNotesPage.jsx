@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { useParams } from 'react-router-dom'
-import { getNote } from '../utils';
+
+import { getNote } from '../utils/local-data';
 
 function DetailsNotesPageWrapper(){
   const {id} = useParams()
 
-  return <DetailsNotesPage id={Number(id)}/>
+  return <DetailsNotesPage id={id}/>
 }
 class DetailsNotesPage extends Component {
   constructor(props){

@@ -1,12 +1,18 @@
 import React, { Component, } from 'react';
-import Header from './components/layouts/Header';
-import { getInitialData } from './utils';
-import Footer from './components/layouts/Footer';
 import { Route, Routes, Navigate, useSearchParams } from 'react-router-dom';
+
+// Layout
+import Header from './components/layouts/Header';
+import Footer from './components/layouts/Footer';
+
+// Pages for Router
 import NoMatchPage from './pages/NoMatchPage';
 import DetailsNotesPage from './pages/DetailsNotesPage';
 import ListNotesPage from './pages/ListNotesPage';
 import AddNotesPage from './pages/AddNotesPage';
+
+// Data
+import { getAllNotes } from './utils/local-data';
 
 const AppWrapper = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -24,7 +30,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			notes: getInitialData(),
+			notes: getAllNotes(),
 			search: props.defaultKeyword || ''
 		}
 		this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
