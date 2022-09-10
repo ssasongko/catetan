@@ -4,13 +4,13 @@ import NotesList from '../components/NotesList'
 import Search from '../components/Search'
 import Tabs from '../components/Tabs'
 
-const ListNotesPage = ({onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, notes, search}) => {
+const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, onKeywordChangeEventHandler, notes, search}) => {
   const archivedNotes = notes.filter(note => (note.archived === true));
 	const activeNotes = notes.filter(note => (note.archived === false));
 
   return (
     <article className='w-full md:w-2/3 px-6 flex flex-wrap justify-center mx-auto my-2'>
-      <Search onSearch={onSearchEventHandler} />
+      <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} />
       <Link to="/notes/new" className='ml-auto mt-3'>Add</Link>
       <Tabs>
         <div label='Notes'>
@@ -26,11 +26,7 @@ const ListNotesPage = ({onSearchEventHandler, onDeleteEventHandler, onArchiveEve
               ? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
               : 'Archived note is empty'
           }
-
         </div>
-        {/* <div label='Add'>
-          <NotesInput onAddNotes={onAddNotesEventHandler} />
-        </div> */}
       </Tabs>
     </article>
   )

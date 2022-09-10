@@ -1,16 +1,23 @@
 import React, { Component, } from 'react';
 import Header from './components/layouts/Header';
-import Search from './components/Search';
-import Tabs from './components/Tabs';
 import { getInitialData } from './utils';
-import NotesList from './components/NotesList';
-import NotesInput from './components/NotesInput';
 import Footer from './components/layouts/Footer';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useSearchParams } from 'react-router-dom';
 import NoMatchPage from './pages/NoMatchPage';
 import DetailsNotesPage from './pages/DetailsNotesPage';
 import ListNotesPage from './pages/ListNotesPage';
 import AddNotesPage from './pages/AddNotesPage';
+
+const AppWrapper = () => {
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const keyword = searchParams.get('q')
+	const changeSearchParams = (q) => {
+		setSearchParams({q})
+	}
+
+	return <App defaultKeyword={keyword} keywordChange={changeSearchParams}/>
+}
 
 class App extends Component {
 
@@ -18,12 +25,22 @@ class App extends Component {
 		super(props);
 		this.state = {
 			notes: getInitialData(),
-			search: ''
+			search: props.defaultKeyword || ''
 		}
 		this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
 		this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
 		this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
 		this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
+	}
+
+	onKeywordEventHandler = (search) => {
+		this.setState(()=>{
+			return {
+				search,
+			}
+		})
+
+		this.props.keywordChange(search)
 	}
 
 	onSearchEventHandler = (find) => {
@@ -69,18 +86,16 @@ class App extends Component {
 
 	render() {
 		const {
-			onAddNotesEventHandler,
+			onKeywordEventHandler,
+			onSearchEventHandler,
 			onDeleteEventHandler,
 			onArchiveEventHandler,
-			onSearchEventHandler,
+			onAddNotesEventHandler,
 			state: {
 				notes,
 				search,
 			}
 		} = this;
-
-		// const archivedNotes = notes.filter(note => (note.archived === true));
-		// const activeNotes = notes.filter(note => (note.archived === false));
 
 		return (
 			<main className='container-fluid'>
@@ -92,6 +107,7 @@ class App extends Component {
 						onSearchEventHandler={onSearchEventHandler} 
 						onDeleteEventHandler={onDeleteEventHandler} 
 						onArchiveEventHandler={onArchiveEventHandler} 
+						onKeywordChangeEventHandler={onKeywordEventHandler}
 						notes={notes}
 						search={search}
 						/>} 
@@ -110,4 +126,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default AppWrapper;

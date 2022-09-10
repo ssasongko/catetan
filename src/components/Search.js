@@ -4,7 +4,7 @@ class Search extends Component{
     constructor(props){
         super(props);
         this.state = {
-            search: ''
+            search: props.search || ''
         }
 
         this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this);
@@ -12,16 +12,18 @@ class Search extends Component{
     }
 
     onClickDeleteHandler = () => {
-        const {onSearch} = this.props;
+        const {onSearch, onKeywordChange} = this.props;
         this.setState({search: ''})
         onSearch('');
+        onKeywordChange('')
     }
 
     onSearchChangeHandler = (event) => {
-        const {onSearch} = this.props;
+        const {onSearch, onKeywordChange} = this.props;
         this.setState({search: event.target.value})
         onSearch(event.target.value.toLowerCase());
-    }
+        onKeywordChange(event.target.value.toLowerCase())
+    }    
 
     render(){
         const {
@@ -45,4 +47,4 @@ class Search extends Component{
     }
 }
 
-export default Search;
+export default Search
