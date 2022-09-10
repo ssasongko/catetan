@@ -8,7 +8,9 @@ import NotesInput from './components/NotesInput';
 import Footer from './components/layouts/Footer';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import NoMatchPage from './pages/NoMatchPage';
-import DetailsNotes from './pages/DetailsNotesPage';
+import DetailsNotesPage from './pages/DetailsNotesPage';
+import ListNotesPage from './pages/ListNotesPage';
+import AddNotesPage from './pages/AddNotesPage';
 
 class App extends Component {
 
@@ -77,72 +79,27 @@ class App extends Component {
 			}
 		} = this;
 
-		const archivedNotes = notes.filter(note => (note.archived === true));
-		const activeNotes = notes.filter(note => (note.archived === false));
+		// const archivedNotes = notes.filter(note => (note.archived === true));
+		// const activeNotes = notes.filter(note => (note.archived === false));
 
 		return (
 			<main className='container-fluid'>
 				<Header />
 				<Routes>
-					{/* home */}
+					{/* main routes */}
 					<Route path='/' element={<Navigate to='/notes' />} />
+					<Route path='/notes' element={<ListNotesPage 
+						onSearchEventHandler={onSearchEventHandler} 
+						onDeleteEventHandler={onDeleteEventHandler} 
+						onArchiveEventHandler={onArchiveEventHandler} 
+						notes={notes}
+						search={search}
+						/>} 
+					/>
+					<Route path='/notes/:id' element={<DetailsNotesPage />} />
+					<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
 
-					{/* routes notes */}
-					{/* <Route path='/notes' element={
-							<article className='col-8 d-flex flex-wrap justify-content-between mx-auto my-2'>
-								<Search onSearch={onSearchEventHandler} />
-								<Tabs>
-									<div label='Notes'>
-										{
-											(activeNotes.length > 0)
-												? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-												: 'Active note is empty'
-										}
-									</div>
-									<div label='Archived'>
-										{
-											(archivedNotes.length > 0)
-												? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-												: 'Archived note is empty'
-										}
-
-									</div>
-									<div label='Add'>
-										<NotesInput onAddNotes={onAddNotesEventHandler} />
-									</div>
-								</Tabs>
-							</article>
-						}/> */}
-					<Route path='/notes' element={
-						<article className='w-full md:w-2/3 px-6 flex flex-wrap justify-center mx-auto my-2'>
-							<Search onSearch={onSearchEventHandler} />
-							<Tabs>
-								<div label='Notes'>
-									{
-										(activeNotes.length > 0)
-											? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-											: 'Active note is empty'
-									}
-								</div>
-								<div label='Archived'>
-									{
-										(archivedNotes.length > 0)
-											? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-											: 'Archived note is empty'
-									}
-
-								</div>
-								<div label='Add'>
-									<NotesInput onAddNotes={onAddNotesEventHandler} />
-								</div>
-							</Tabs>
-						</article>
-					} />
-					<Route path='/notes/:id' element={<DetailsNotes />} />
-					<Route path='/notes/archived' element={''} />
-					<Route path='/notes/new' element={''} />
-
-					{/* invalid routes, redirect to 404 */}
+					{/* page 404 */}
 					<Route path='*' element={<Navigate to='/not-found' />} />
 					<Route path='/not-found' element={<NoMatchPage />} />
 				</Routes>
