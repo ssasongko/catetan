@@ -14,6 +14,7 @@ import AddNotesPage from './pages/AddNotesPage';
 // Data
 import { getAllNotes } from './utils/local-data';
 import EditNotesWrapper from './pages/EditNotesPage';
+import autoBind from 'auto-bind';
 
 const AppWrapper = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -34,13 +35,8 @@ class App extends Component {
 			notes: getAllNotes(),
 			search: props.defaultKeyword || ''
 		}
-		this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
-		this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
-		this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
-		this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
-		this.onKeywordEventHandler = this.onKeywordEventHandler.bind(this);
-		this.onFindNoteHandler = this.onFindNoteHandler.bind(this)
-		this.onEditNoteHandler = this.onEditNoteHandler.bind(this)
+		
+		autoBind(this);
 	}
 
 	onFindNoteHandler = (id) => {
@@ -101,24 +97,14 @@ class App extends Component {
 	}
 
 	onEditNoteHandler = (obj) => {
-		console.log(typeof obj)
-
 		const { notes } = this.state;
 
 		const willChangeNote = [obj]
-
 		const changedNote = notes.map(note => willChangeNote.find(c => c.id === note.id) || note)
 
 		this.setState({
 			notes: changedNote
 		})
-		// const note = notes.find((note)=>note.id === id)
-		// if(note){
-			
-		// }
-
-		// return console.error('note was not found')
-		// kalo null return "Error"
 	}
 
 	render() {
