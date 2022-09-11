@@ -35,7 +35,7 @@ class App extends Component {
 			notes: getAllNotes(),
 			search: props.defaultKeyword || ''
 		}
-		
+
 		autoBind(this);
 	}
 
@@ -123,10 +123,10 @@ class App extends Component {
 		} = this;
 
 		return (
-			<main className='container-fluid'>
+			<main className='h-screen container-fluid flex flex-col'>
 				<Header />
 
-				<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0'>
+				<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0 grow'>
 					<Routes>
 						{/* main routes */}
 						<Route path='/' element={<Navigate to='/notes' />} />
@@ -149,7 +149,7 @@ class App extends Component {
 					</Routes>
 				</section>
 
-				{/* <Footer /> */}
+				<Footer />
 			</main>
 		)
 	}
