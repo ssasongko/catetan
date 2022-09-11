@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import HomeLink from '../components/HomeLink';
 import { useNavigate } from 'react-router-dom';
+import ContentEditable from 'react-contenteditable';
 
 const AddNotesPageWrapper = ({ onAddNotes }) => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ class AddNotesPage extends Component {
   }
 
   onContentChangeEventHandler(event) {
-    let val = event.target.textContent;
+    let val = event.target.value;
 
     this.setState({
       content: val,
@@ -98,7 +99,8 @@ class AddNotesPage extends Component {
 
           <div className='mt-5'>
             <label>Notes: </label>
-            <div className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} onInput={onContentChangeEventHandler} contentEditable ></div>
+            <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} html={content} onChange={onContentChangeEventHandler} />
+            {/* <div className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} onInput={onContentChangeEventHandler} contentEditable ></div> */}
             <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
           </div>
 
