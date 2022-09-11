@@ -4,6 +4,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ContentEditable from 'react-contenteditable';
 import autoBind from 'auto-bind';
 
+// Components
+import HomeLink from '../components/HomeLink';
+
 const EditNotesWrapper = ({ onFindNoteHandler, onEditNoteHandler }) => {
   const navigate = useNavigate();
   const { id } = useParams()
@@ -115,7 +118,6 @@ class EditNotes extends Component {
               <div className='mt-5'>
                 <label>Notes: </label>
                 <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} html={note.body || ''} onChange={onContentChangeEventHandler} />
-                {/* <div className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} onInput={onContentChangeEventHandler} contentEditable >{content}</div> */}
                 <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
               </div>
 
@@ -126,22 +128,20 @@ class EditNotes extends Component {
 
               <button className="w-full mt-5 p-1 submit-button" type="submit">Submit</button>
             </form>
+
+            <Link to={`/notes/${note.id}`} className='underline'>
+              {`<--`} Back to Detail
+            </Link>
           </>
         }
 
-        {/* if note was not found */}
         {!note &&
           <>
             <p className='text-2xl mb-5'>The note was not found, could be deleted ?</p>
-            <Link to="/" className='underline'>
-              {`<--`} Back to Home
-            </Link>
+            <HomeLink />
           </>
-
         }
-
       </div>
-
     )
   }
 }
