@@ -1,9 +1,9 @@
+// Packages
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { IoAddCircle } from "react-icons/io5";
 
-// components
+// Components
 import NotesList from '../components/NotesList'
 import Search from '../components/Search'
 import Tabs from '../components/Tabs'
@@ -15,7 +15,6 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEv
   return (
     <article className='w-full flex flex-col gap-5 flex-wrap'>
       <Link to="/notes/new" className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
-        {/* <IoAddCircle color="black" /> */}
         <span>Add New Notes</span>
       </Link>
       <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} />

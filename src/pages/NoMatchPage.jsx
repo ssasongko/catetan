@@ -1,4 +1,7 @@
+// Packages
 import React from 'react'
+
+// Component
 import HomeLink from '../components/HomeLink'
 
 const NoMatchPage = () => {
