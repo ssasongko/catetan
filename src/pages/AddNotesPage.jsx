@@ -1,7 +1,11 @@
+// Packages
 import React, { Component } from 'react'
-import HomeLink from '../components/HomeLink';
 import { useNavigate } from 'react-router-dom';
 import ContentEditable from 'react-contenteditable';
+import autoBind from 'auto-bind';
+
+// Components
+import HomeLink from '../components/HomeLink';
 
 const AddNotesPageWrapper = ({ onAddNotes }) => {
   const navigate = useNavigate();
@@ -21,10 +25,7 @@ class AddNotesPage extends Component {
       boolContent: true,
     }
 
-    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
-    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-    this.onContentChangeEventHandler = this.onContentChangeEventHandler.bind(this);
-
+    autoBind(this);
   }
 
   onTitleChangeEventHandler(event) {

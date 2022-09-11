@@ -1,5 +1,7 @@
+// Packages
 import React, { Component, } from 'react';
 import { Route, Routes, Navigate, useSearchParams } from 'react-router-dom';
+import autoBind from 'auto-bind';
 
 // Layout
 import Header from './components/layouts/Header';
@@ -14,7 +16,6 @@ import AddNotesPage from './pages/AddNotesPage';
 // Data
 import { getAllNotes } from './utils/local-data';
 import EditNotesWrapper from './pages/EditNotesPage';
-import autoBind from 'auto-bind';
 
 const AppWrapper = () => {
 	const [searchParams, setSearchParams] = useSearchParams();

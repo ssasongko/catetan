@@ -1,7 +1,8 @@
+// Packages
 import React, { Component } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ContentEditable from 'react-contenteditable';
-
+import autoBind from 'auto-bind';
 
 const EditNotesWrapper = ({ onFindNoteHandler, onEditNoteHandler }) => {
   const navigate = useNavigate();
@@ -22,10 +23,7 @@ class EditNotes extends Component {
       boolContent: true,
     }
 
-    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this)
-    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this)
-    this.onContentChangeEventHandler = this.onContentChangeEventHandler.bind(this)
-    this.onArchivedChangeEventHandler = this.onArchivedChangeEventHandler.bind(this)
+    autoBind(this);
   }
 
   onTitleChangeEventHandler(event) {
