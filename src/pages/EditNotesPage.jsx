@@ -4,8 +4,16 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ContentEditable from 'react-contenteditable';
 import autoBind from 'auto-bind';
 
+// Utils
+import { showFormattedDate } from '../utils';
+
 // Components
 import HomeLink from '../components/HomeLink';
+import NoteHeading from '../components/notes/NoteHeading';
+import ReaminingChars from '../components/notes/ReaminingChars';
+import NoteInputTitle from '../components/notes/NoteInputTitle';
+import NoteInvalidMessage from '../components/notes/NoteInvalidMessage';
+import Button from '../components/notes/Button';
 
 const EditNotesWrapper = ({ onFindNoteHandler, onEditNoteHandler }) => {
   const navigate = useNavigate();
@@ -21,7 +29,7 @@ class EditNotes extends Component {
     this.state = {
       note: props.note || '',
       titleMaxLength: 50,
-      titleCount: 50 - props.note ? props.note.title.length : 0,
+      titleCount: 50 - props.note.title.length || 0,
       boolTitle: true,
       boolContent: true,
     }
@@ -91,42 +99,45 @@ class EditNotes extends Component {
     } = this;
 
     return (
-      <div className="w-full note-create border border-[#aaa] p-6">
+      <div className="w-full note-create border-2 border-[#aaa] p-6">
         {note &&
           <>
             <form className='mb-3' onSubmit={onSubmitEventHandler}>
 
-              <div>
-                <label>Note id : </label>
+              <NoteHeading text='Edit a Note' />
+
+              <div className='mt-5'>
+                <label>Note ID : </label>
                 <input className='w-full border  mt-1 p-1' type='text' disabled value={note.id} />
               </div>
 
-              <hr className='mt-5' />
-
               <div className='mt-5'>
-                <p className="text-right note-create__span">remaining chars : {titleCount}</p>
-                <label> Title:</label>
-                <input className={`w-full border mt-1 p-1 note-create__title-input ${(boolTitle) ? '' : 'input-error'}`} type="text" onChange={onTitleChangeEventHandler} value={note.title} />
-                <label className={`message-error ${(boolTitle) ? 'is_hidden' : ''}`}>The title field is required</label>
+                <div className='flex justify-between items-center'>
+                  <label>Title:</label>
+                  <ReaminingChars titleCount={titleCount} />
+                </div>
+
+                <NoteInputTitle value={note.title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
+                <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
               </div>
 
               <div className='mt-5'>
                 <label>Date Created : </label>
-                <input className='w-full border  mt-1 p-1' type='text' disabled value={note.createdAt} />
+                <input className='w-full border  mt-1 p-1' type='text' disabled value={showFormattedDate(note.createdAt)} />
               </div>
 
               <div className='mt-5'>
                 <label>Notes: </label>
-                <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} html={note.body || ''} onChange={onContentChangeEventHandler} />
-                <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
+                <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'border-2 border-danger'}`} html={note.body || ''} onChange={onContentChangeEventHandler} />
+                <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
               </div>
 
               <div className='flex gap-x-3 mt-5'>
-                <input type='checkbox' checked={note.archived} onChange={onArchivedChangeEventHandler} />
-                <span>Archived</span>
+                <input id="checkBtnArchived" type='checkbox' checked={note.archived} onChange={onArchivedChangeEventHandler} />
+                <label htmlFor="checkBtnArchived">Archived</label>
               </div>
 
-              <button className="w-full mt-5 p-1 submit-button" type="submit">Submit</button>
+              <Button text='Update'/>
             </form>
 
             <Link to={`/notes/${note.id}`} className='underline'>

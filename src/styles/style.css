@@ -98,9 +98,9 @@
   background-color: white;
 }
 
-.is_hidden {
+/* .is_hidden {
   display: none;
-}
+} */
 
 .modal {
   position: fixed;
@@ -220,14 +220,14 @@
   font-size: 13px;
 }
 
-.input-error{
-  border: 1px solid red;
-}
-
+/* .input-error{
+  border: 1px solid red; */
+/* } */
+/* 
 .submit-button{
   background-color: #ffeb3b;
   cursor: pointer;
   border-width: 1px;
   border-style: solid;
   border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-}
+} */

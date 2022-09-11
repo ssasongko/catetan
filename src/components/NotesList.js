@@ -31,7 +31,7 @@ class NotesList extends Component {
 							/>
 						)
 					})
-					: "Result note was not found"
+					: "The note was not found based on what you searched for"
 				}
 			</div>
 		)

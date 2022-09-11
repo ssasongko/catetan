@@ -126,30 +126,26 @@ class App extends Component {
 		return (
 			<main className='h-screen container-fluid flex flex-col'>
 				<Header />
-
 				<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0 grow'>
 					<Routes>
-						{/* main routes */}
 						<Route path='/' element={<Navigate to='/notes' />} />
-						<Route path='/notes' element={<ListNotesPage
-							onSearchEventHandler={onSearchEventHandler}
-							onDeleteEventHandler={onDeleteEventHandler}
-							onArchiveEventHandler={onArchiveEventHandler}
-							onKeywordChangeEventHandler={onKeywordEventHandler}
-							notes={notes}
-							search={search}
-						/>}
-						/>
+						<Route path='/notes' element={
+							<ListNotesPage
+								onSearchEventHandler={onSearchEventHandler}
+								onDeleteEventHandler={onDeleteEventHandler}
+								onArchiveEventHandler={onArchiveEventHandler}
+								onKeywordChangeEventHandler={onKeywordEventHandler}
+								notes={notes}
+								search={search}
+							/>
+						} />
 						<Route path='/notes/:id' element={<DetailsNotesPage onFindNoteHandler={onFindNoteHandler} />} />
 						<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
 						<Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} />
-
-						{/* page 404 */}
 						<Route path='*' element={<Navigate to='/not-found' />} />
 						<Route path='/not-found' element={<NoMatchPage />} />
 					</Routes>
 				</section>
-
 				<Footer />
 			</main>
 		)

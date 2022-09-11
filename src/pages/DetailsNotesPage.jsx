@@ -4,6 +4,8 @@ import HomeLink from '../components/HomeLink';
 import parser from 'html-react-parser';
 import { showFormattedDate } from '../utils';
 
+import NoteHeading from '../components/notes/NoteHeading';
+
 function DetailsNotesPageWrapper({ onFindNoteHandler }) {
   const { id } = useParams()
 
@@ -30,9 +32,7 @@ class DetailsNotesPage extends Component {
         {note &&
           <>
             <div className='flex justify-between items-center'>
-              <div className='flex justify-end gap-x-3'>
-                <span className='text-2xl'>{(note.archived) ? 'Archived' : 'Active'} Notes</span>
-              </div>
+              <NoteHeading text='Note Detail'/>
 
               <Link to={`/notes/${note.id}/edit`} className='items-center border-2 p-2 bg-primary'>
                 <span>Edit Notes</span>

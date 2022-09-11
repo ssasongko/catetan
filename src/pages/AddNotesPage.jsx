@@ -6,6 +6,11 @@ import autoBind from 'auto-bind';
 
 // Components
 import HomeLink from '../components/HomeLink';
+import NoteHeading from '../components/notes/NoteHeading';
+import ReaminingChars from '../components/notes/ReaminingChars';
+import NoteInputTitle from '../components/notes/NoteInputTitle';
+import NoteInvalidMessage from '../components/notes/NoteInvalidMessage';
+import Button from '../components/notes/Button';
 
 const AddNotesPageWrapper = ({ onAddNotes }) => {
   const navigate = useNavigate();
@@ -88,25 +93,27 @@ class AddNotesPage extends Component {
     } = this;
 
     return (
-      <div className="w-full note-create border border-[#aaa] p-6">
+      <div className="w-full note-create border-2 border-[#aaa] p-6">
         <form className='mb-3' onSubmit={onSubmitEventHandler}>
-          <p className="text-right note-create__span">remaining chars : {titleCount}</p>
+          <NoteHeading text='Create a Note' />
 
-          <div>
-            <label> Title:</label>
-            <input className={`w-full border mt-1 p-1 note-create__title-input ${(boolTitle) ? '' : 'input-error'}`} type="text" onChange={onTitleChangeEventHandler} value={title} />
-            <label className={`message-error ${(boolTitle) ? 'is_hidden' : ''}`}>The title field is required</label>
+          <div className='mt-5'>
+            <div className='flex justify-between items-center'>
+              <label>Title:</label>
+              <ReaminingChars titleCount={titleCount} />
+            </div>
+            
+            <NoteInputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
+            <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
           </div>
 
           <div className='mt-5'>
             <label>Notes: </label>
-            <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} html={content} onChange={onContentChangeEventHandler} />
-            {/* <div className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} onInput={onContentChangeEventHandler} contentEditable ></div> */}
-            <span className={`message-error ${(boolContent) ? 'is_hidden' : ''}`}>The content field is required</span>
+            <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'border-2 border-danger'}`} html={content} onChange={onContentChangeEventHandler} />
+            <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
           </div>
-
-          {/* <textarea className={`w-full border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'input-error'}`} cols="30" rows="5" placeholder="Content...." onChange={onContentChangeEventHandler} value={content}></textarea> */}
-          <button className="w-full mt-5 p-1 submit-button" type="submit">Submit</button>
+          
+          <Button text='Submit' />
         </form>
         <HomeLink />
       </div>
