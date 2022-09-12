@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const NoteHeading = ({text}) => {
+const Heading = ({text}) => {
   return (
     <>
       <h4 className='text-2xl'>
@@ -12,8 +12,8 @@ const NoteHeading = ({text}) => {
   )
 }
 
-NoteHeading.propTypes = {
+Heading.propTypes = {
   text: PropTypes.string.isRequired
 }
 
-export default NoteHeading
+export default Heading

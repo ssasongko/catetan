@@ -2,14 +2,14 @@
 import React from 'react'
 
 // Component
-import HomeLink from '../components/HomeLink'
+import AnchorText from '../components/notes/AnchorText'
 
 const NoMatchPage = () => {
   
   return (
-    <div className='w-full note-create border border-[#aaa] p-6'>
+    <div className='w-full note-create border-2 border-[#aaa] p-6'>
       <p className='text-center text-4xl mb-4'>Not Found: 404</p>
-      <HomeLink/>
+      <AnchorText navigateTo='/' text={`<-- Back to Home`} />
     </div>
   )
 }

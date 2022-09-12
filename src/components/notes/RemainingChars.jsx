@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ReaminingChars = ({titleCount}) => {
+const RemainingChars = ({titleCount}) => {
   return (
     <>
       <span className='text-md'>Remaining chars : {titleCount}</span>
@@ -9,8 +9,8 @@ const ReaminingChars = ({titleCount}) => {
   )
 }
 
-ReaminingChars.propTypes = {
+RemainingChars.propTypes = {
   titleCount: PropTypes.number.isRequired
 }
 
-export default ReaminingChars
+export default RemainingChars

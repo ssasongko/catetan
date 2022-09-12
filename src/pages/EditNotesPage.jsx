@@ -1,19 +1,21 @@
 // Packages
 import React, { Component } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import ContentEditable from 'react-contenteditable';
+import { useNavigate, useParams } from 'react-router-dom';
 import autoBind from 'auto-bind';
+import PropTypes from 'prop-types'
 
 // Utils
 import { showFormattedDate } from '../utils';
 
 // Components
-import HomeLink from '../components/HomeLink';
-import NoteHeading from '../components/notes/NoteHeading';
-import ReaminingChars from '../components/notes/ReaminingChars';
-import NoteInputTitle from '../components/notes/NoteInputTitle';
-import NoteInvalidMessage from '../components/notes/NoteInvalidMessage';
-import Button from '../components/notes/Button';
+import RemainingChars from '../components/notes/RemainingChars';
+import NoteInvalidMessage from '../components/notes/InvalidMessage';
+import Button from '../components/notes/SubmitButton';
+import InputDate from '../components/notes/InputDate';
+import Heading from '../components/notes/Heading';
+import InputTitle from '../components/notes/InputTitle';
+import AnchorText from '../components/notes/AnchorText';
+import StaticInput from '../components/notes/StaticInput';
 
 const EditNotesWrapper = ({ onFindNoteHandler, onEditNoteHandler }) => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ class EditNotes extends Component {
     this.setState({
       note: { ...note, title: val },
       titleCount: titleMaxLength - val.length,
-      boolTitle: val !== ""
+      boolTitle: val !== ''
     });
   }
 
@@ -55,7 +57,7 @@ class EditNotes extends Component {
 
     this.setState({
       note: { ...note, body: val },
-      boolContent: val !== ""
+      boolContent: val !== ''
     });
   }
 
@@ -72,10 +74,10 @@ class EditNotes extends Component {
 
     const { state: { note }, props: { onEditNoteHandler, navigate } } = this
 
-    if (note.title === "" || note.body === "") {
+    if (note.title === '' || note.body === '') {
       this.setState({
-        boolTitle: note.title !== "",
-        boolContent: note.body !== ""
+        boolTitle: note.title !== '',
+        boolContent: note.body !== ''
       });
       return;
     }
@@ -99,62 +101,65 @@ class EditNotes extends Component {
     } = this;
 
     return (
-      <div className="w-full note-create border-2 border-[#aaa] p-6">
+      <div className='w-full note-create border-2 border-[#aaa] p-6'>
         {note &&
           <>
             <form className='mb-3' onSubmit={onSubmitEventHandler}>
 
-              <NoteHeading text='Edit a Note' />
+              <Heading text='Edit a Note' />
 
               <div className='mt-5'>
                 <label>Note ID : </label>
-                <input className='w-full border  mt-1 p-1' type='text' disabled value={note.id} />
+                <StaticInput text={note.id} />
               </div>
 
               <div className='mt-5'>
                 <div className='flex justify-between items-center'>
                   <label>Title:</label>
-                  <ReaminingChars titleCount={titleCount} />
+                  <RemainingChars titleCount={titleCount} />
                 </div>
 
-                <NoteInputTitle value={note.title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
+                <InputTitle value={note.title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
                 <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
               </div>
 
               <div className='mt-5'>
-                <label>Date Created : </label>
-                <input className='w-full border  mt-1 p-1' type='text' disabled value={showFormattedDate(note.createdAt)} />
-              </div>
-
-              <div className='mt-5'>
                 <label>Notes: </label>
-                <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'border-2 border-danger'}`} html={note.body || ''} onChange={onContentChangeEventHandler} />
+                <InputDate value={note.body} onChangeValue={onContentChangeEventHandler} isError={boolContent} />
                 <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
               </div>
 
-              <div className='flex gap-x-3 mt-5'>
-                <input id="checkBtnArchived" type='checkbox' checked={note.archived} onChange={onArchivedChangeEventHandler} />
-                <label htmlFor="checkBtnArchived">Archived</label>
+              <div className='mt-5'>
+                <label>Date Created : </label>
+                <StaticInput text={showFormattedDate(note.createdAt)} />
               </div>
 
-              <Button text='Update'/>
+              <div className='flex gap-x-3 mt-5'>
+                <input id='checkBtnArchived' type='checkbox' checked={note.archived} onChange={onArchivedChangeEventHandler} />
+                <label htmlFor='checkBtnArchived'>Archived</label>
+              </div>
+              
+              <Button text='Update' />
             </form>
 
-            <Link to={`/notes/${note.id}`} className='underline'>
-              {`<--`} Back to Detail
-            </Link>
+            <AnchorText navigateTo={`/notes/${note.id}`} text={`<-- Back to Detail`} />
           </>
         }
 
         {!note &&
           <>
             <p className='text-2xl mb-5'>The note was not found, could be deleted ?</p>
-            <HomeLink />
+            <AnchorText navigateTo='/' text={`<-- Back to Home`} />
           </>
         }
       </div>
     )
   }
+}
+
+EditNotesWrapper.propTypes = {
+  onFindNoteHandler: PropTypes.func.isRequired,
+  onEditNoteHandler: PropTypes.func.isRequired,
 }
 
 export default EditNotesWrapper;

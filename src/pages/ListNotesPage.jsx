@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 // Components
-import NotesList from '../components/NotesList'
-import Search from '../components/Search'
-import Tabs from '../components/Tabs'
+import NotesList from '../components/notes/NotesList'
+import Search from '../components/notes/Search'
+import Tabs from '../components/notes/Tabs'
 
 const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, onKeywordChangeEventHandler, notes, search}) => {
   const archivedNotes = notes.filter(note => (note.archived === true));
@@ -14,7 +14,7 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEv
 
   return (
     <article className='w-full flex flex-col gap-5 flex-wrap'>
-      <Link to="/notes/new" className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
+      <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
         <span>Add New Notes</span>
       </Link>
       <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} />

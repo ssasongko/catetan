@@ -1,16 +1,17 @@
 // Packages
 import React, { Component } from 'react'
 import { useNavigate } from 'react-router-dom';
-import ContentEditable from 'react-contenteditable';
 import autoBind from 'auto-bind';
+import PropTypes from 'prop-types'
 
 // Components
-import HomeLink from '../components/HomeLink';
-import NoteHeading from '../components/notes/NoteHeading';
-import ReaminingChars from '../components/notes/ReaminingChars';
-import NoteInputTitle from '../components/notes/NoteInputTitle';
-import NoteInvalidMessage from '../components/notes/NoteInvalidMessage';
-import Button from '../components/notes/Button';
+import RemainingChars from '../components/notes/RemainingChars';
+import NoteInvalidMessage from '../components/notes/InvalidMessage';
+import Button from '../components/notes/SubmitButton';
+import InputDate from '../components/notes/InputDate';
+import Heading from '../components/notes/Heading';
+import InputTitle from '../components/notes/InputTitle';
+import AnchorText from '../components/notes/AnchorText';
 
 const AddNotesPageWrapper = ({ onAddNotes }) => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ class AddNotesPage extends Component {
     this.setState({
       title: val,
       titleCount: titleMaxLength - val.length,
-      boolTitle: val !== ""
+      boolTitle: val !== ''
     });
   }
 
@@ -50,7 +51,7 @@ class AddNotesPage extends Component {
 
     this.setState({
       content: val,
-      boolContent: val !== ""
+      boolContent: val !== ''
     });
   }
 
@@ -59,10 +60,10 @@ class AddNotesPage extends Component {
 
     const { state: { title, content, titleMaxLength }, props: { onAddNotes, navigate } } = this;
 
-    if (title === "" || content === "") {
+    if (title === '' || content === '') {
       this.setState({
-        boolTitle: title !== "",
-        boolContent: content !== ""
+        boolTitle: title !== '',
+        boolContent: content !== ''
       });
       return;
     }
@@ -93,32 +94,35 @@ class AddNotesPage extends Component {
     } = this;
 
     return (
-      <div className="w-full note-create border-2 border-[#aaa] p-6">
+      <div className='w-full note-create border-2 border-[#aaa] p-6'>
         <form className='mb-3' onSubmit={onSubmitEventHandler}>
-          <NoteHeading text='Create a Note' />
+          <Heading text='Create a Note' />
 
           <div className='mt-5'>
             <div className='flex justify-between items-center'>
               <label>Title:</label>
-              <ReaminingChars titleCount={titleCount} />
+              <RemainingChars titleCount={titleCount} />
             </div>
-            
-            <NoteInputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
+            <InputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
             <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
           </div>
 
           <div className='mt-5'>
             <label>Notes: </label>
-            <ContentEditable className={`w-full min-h-[12em] items-center border mt-1 p-1 note-create__content-textarea ${(boolContent) ? '' : 'border-2 border-danger'}`} html={content} onChange={onContentChangeEventHandler} />
+            <InputDate value={content} onChangeValue={onContentChangeEventHandler} isError={boolContent} />
             <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
           </div>
-          
+
           <Button text='Submit' />
         </form>
-        <HomeLink />
+        <AnchorText navigateTo='/' text={`<-- Back to Home`} />
       </div>
     )
   }
+}
+
+AddNotesPageWrapper.propTypes = {
+  onAddNotes: PropTypes.func.isRequired,
 }
 
 export default AddNotesPageWrapper;

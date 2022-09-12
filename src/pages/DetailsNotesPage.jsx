@@ -1,12 +1,17 @@
+// Packages
 import React, { Component } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import HomeLink from '../components/HomeLink';
 import parser from 'html-react-parser';
+import PropTypes from 'prop-types'
+
+// Utils
 import { showFormattedDate } from '../utils';
 
-import NoteHeading from '../components/notes/NoteHeading';
+// Components
+import Heading from '../components/notes/Heading';
+import AnchorText from '../components/notes/AnchorText';
 
-function DetailsNotesPageWrapper({ onFindNoteHandler }) {
+const DetailsNotesPageWrapper = ({ onFindNoteHandler }) => {
   const { id } = useParams()
 
   const note = onFindNoteHandler(id)
@@ -28,24 +33,24 @@ class DetailsNotesPage extends Component {
     } = this;
 
     return (
-      <div className='w-full flex flex-col gap-y-5 border border-[#aaa] p-6'>
+      <div className='w-full flex flex-col gap-y-5 border-2 border-[#aaa] p-6'>
         {note &&
           <>
             <div className='flex justify-between items-center'>
-              <NoteHeading text='Note Detail'/>
+              <Heading text='Note Detail'/>
 
               <Link to={`/notes/${note.id}/edit`} className='items-center border-2 p-2 bg-primary'>
                 <span>Edit Notes</span>
               </Link>
             </div>
 
-            <div className="note-item flex flex-col">
+            <div className='note-item flex flex-col'>
               <div className='p-3 bg-primary'>
                 id: {note.id}
               </div>
-              <div className="p-6 note-item__content overflow-auto">
-                <h3 className="note-item__title font-bold">{note.title}</h3>
-                <span className="note-item__date">{showFormattedDate(note.createdAt)}</span>
+              <div className='p-6 note-item__content overflow-auto'>
+                <h3 className='note-item__title font-bold'>{note.title}</h3>
+                <span className='note-item__date'>{showFormattedDate(note.createdAt)}</span>
                 <div className='mt-3'>
                   {parser(note.body)}
                 </div>
@@ -59,10 +64,13 @@ class DetailsNotesPage extends Component {
           <p className='text-2xl mb-5'>The note was not found, could be deleted ?</p>
         }
   
-        <HomeLink />
+        <AnchorText navigateTo='/' text={`<-- Back to Home`} />
       </div>
     )
   }
 }
 
+DetailsNotesPageWrapper.propTypes = {
+  onFindNoteHandler: PropTypes.func.isRequired,
+}
 export default DetailsNotesPageWrapper

@@ -1,8 +1,11 @@
+// Packages
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+
+// Components
 import NotesItem from './NotesItem';
 
 class NotesList extends Component {
-
 	render() {
 		const {
 			props: {
@@ -19,7 +22,7 @@ class NotesList extends Component {
 		});
 
 		return (
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+			<div className='grid grid-cols-1 md:grid-cols-2 gap-4 p-2'>
 				{(filtered.length > 0)
 					? filtered.map((note) => {
 						return (
@@ -31,12 +34,18 @@ class NotesList extends Component {
 							/>
 						)
 					})
-					: "The note was not found based on what you searched for"
+					: 'The note was not found based on what you searched for'
 				}
 			</div>
 		)
 	}
 }
 
+NotesList.propTypes = {
+	onArchive: PropTypes.func.isRequired,
+	onDelete: PropTypes.func.isRequired,
+	notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+	search: PropTypes.string.isRequired
+}
 export default NotesList;
 
