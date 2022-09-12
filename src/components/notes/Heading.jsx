@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Heading = ({text}) => {
+const Heading = ({ text }) => {
   return (
     <>
       <h4 className='text-2xl'>

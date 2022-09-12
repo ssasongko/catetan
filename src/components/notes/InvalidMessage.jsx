@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const NoteInvalidMessage = ({errorMessage, isError}) => {
+const NoteInvalidMessage = ({ errorMessage, isError }) => {
   return (
     <>
       <span className={`text-danger ${(isError) ? 'hidden' : ''}`}>{errorMessage}</span>

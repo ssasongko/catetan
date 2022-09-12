@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const RemainingChars = ({titleCount}) => {
+const RemainingChars = ({ titleCount }) => {
   return (
     <>
       <span className='text-md'>Remaining chars : {titleCount}</span>

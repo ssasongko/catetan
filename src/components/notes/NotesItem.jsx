@@ -32,7 +32,7 @@ class NotesItem extends Component {
 				</div>
 				<div className='note-item__action flex'>
 					<DeleteButton id={note.id} onDelete={onDelete} />
-					<ArchiveButton id={note.id} onArchive={onArchive} isArchived={note.archived}/>
+					<ArchiveButton id={note.id} onArchive={onArchive} isArchived={note.archived} />
 				</div>
 			</div>
 		)
