@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
@@ -9,22 +13,13 @@
   font-size: 1rem;
 }
 
-.bg-primary {
-  background-color: #ffeb3b;
-}
-
-header .welcome {
-  height: 15vh;
-}
-
-header .welcome h1 {
+.comfortaa {
   font-family: "Comfortaa", cursive;
-  font-size: 2rem;
 }
 
 .note-search {
   background-color: white;
-  border: 2px solid lightgray;
+  border: 2px solid #ccc;
 }
 
 .note-search__search-input {
@@ -52,7 +47,7 @@ header .welcome h1 {
 
 .notes-tab {
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   background-color: #f1f1f1;
 }
 
@@ -77,7 +72,7 @@ header .welcome h1 {
 
 .tabcontent {
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-top: none;
 }
 
@@ -93,24 +88,6 @@ header .welcome h1 {
 .border-light-bottom {
   border-bottom: 1px solid lightgray;
   padding-bottom: 1rem;
-}
-
-.card {
-  background-color: white;
-}
-
-.is_hidden {
-  display: none;
-}
-
-.modal {
-  position: fixed;
-  width: 500px;
-  height: 25vh;
-  background-color: #F7F6F2;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .notes-list {
@@ -141,7 +118,6 @@ header .welcome h1 {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin-bottom: 4px;
 }
 
 .note-item__date {
@@ -192,44 +168,10 @@ header .welcome h1 {
   outline: none;
 }
 
-
-.tab-content {
-  border: solid lightgray;
-  border-width: 0px 2px 2px 2px;
-}
-
-.tab-list {
-  border-bottom: 2px solid #ccc;
-  padding-left: 0;
-}
-
-.tab-list-item {
-  list-style: none;
-  margin-bottom: -2px;
-  cursor: pointer;
-}
-
 .tab-list-active {
   font-weight: 800;
   border: solid lightgray;
   border-width: 2px 2px 0 2px;
   background-color: white;
   background-color: #ffeb3b;
-}
-
-.message-error {
-  color: red;
-  font-size: 13px;
-}
-
-.input-error{
-  border: 1px solid red;
-}
-
-.submit-button{
-  background-color: #ffeb3b;
-  cursor: pointer;
-  border-width: 1px;
-  border-style: solid;
-  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
