@@ -9,12 +9,8 @@ const LocaleContext = createContext()
 export const LocaleProvider = ({children}) => {
   const [locale, setLocale] = useState(getInitialLocale)
 
-  const updateLang = () => {
-    return localStorage.setItem('locale', locale)
-  }
-
   useEffect(() => {
-    updateLang()
+    return localStorage.setItem('locale', locale)
   }, [locale]);
   
   return (

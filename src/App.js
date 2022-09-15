@@ -18,7 +18,6 @@ import { getAllNotes } from './utils/local-data';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { getUserLogged, putAccessToken } from './utils/network-data';
-import LoadingSpinner from './components/loading/LoadingSpinner';
 
 const AppWrapper = () => {
 	const [searchParams, setSearchParams] = useSearchParams();

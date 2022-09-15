@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { register } from '../../utils/network-data';
-import Swal from 'sweetalert2';
 import LocaleContext from '../../contexts/LocaleContext';
 import useInput from '../hooks/UseInput';
 

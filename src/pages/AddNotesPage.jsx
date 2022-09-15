@@ -1,8 +1,6 @@
 // Packages
-import React, { Component, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import autoBind from 'auto-bind';
-import PropTypes from 'prop-types'
 
 // API
 import { addNote } from '../utils/network-data';
@@ -25,7 +23,7 @@ const AddNotesPage = () => {
 
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [titleMaxLength, setTitleMaxLength] = useState(50)
+  const [titleMaxLength] = useState(50)
   const [titleCount, setTitleCount] = useState(50)
   const [boolTitle, setBoolTitle] = useState(true)
   const [boolContent, setBoolContent] = useState(true)

@@ -1,6 +1,6 @@
 // Packages
-import React, { Component, useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import parser from 'html-react-parser';
 
 // Context
@@ -30,7 +30,7 @@ const DetailsNotesPage = () => {
     return () => {
       setNote({})
     }
-  }, [])
+  }, [id])
 
   return (
     // <>test</>
