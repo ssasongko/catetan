@@ -14,28 +14,31 @@ import LocaleContext from '../contexts/LocaleContext'
 import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
+import LoadingSpinner from '../components/loading/LoadingSpinner'
 
 const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, search }) => {
   const { locale } = useContext(LocaleContext)
 
   const [activeNotes, setActiveNotes] = useState([])
   const [archivedNotes, setArchivedNotes] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getActiveNotes().then(({ data }) => {
       setActiveNotes(data);
     })
-  }, []);
 
-  useEffect(() => {
     getArchivedNotes().then(({ data }) => {
       setArchivedNotes(data);
     })
-  }, [])
 
+    setTimeout(() => { setLoading(false) }, 1200) // purposes to presentation only
+    // setLoading(false)
+  }, []);
 
   // i think this is not the best practice
   const onArchiveEventHandler = (id, isArchived) => {
+    setLoading(true)
     if (isArchived) {
       unarchiveNote(id).then(response => {
         getArchivedNotes().then(({ data }) => {
@@ -45,6 +48,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
           setActiveNotes(data);
         })
       }).catch(error => console.error(error))
+      setLoading(false)
       return
     }
     archiveNote(id).then(response => {
@@ -63,6 +67,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
     getActiveNotes().then(({ data }) => {
       setActiveNotes(data);
     })
+    setLoading(false)
   }
 
   const onDeleteEventHandler = (id) => {
@@ -89,12 +94,16 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
     }).catch(error => console.error(error))
   }
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <article className='w-full flex flex-col gap-5 flex-wrap'>
       <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
         <span>{(locale === 'id' ? 'Tambahkan Note Baru' : 'Add New Notes')}</span>
       </Link>
-      <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} placeholder={(locale === 'id' ? 'Cari note' : 'Find your notes here....')}/>
+      <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} placeholder={(locale === 'id' ? 'Cari note' : 'Find your notes here....')} />
       <Tabs>
         <div label='Notes'>
           {

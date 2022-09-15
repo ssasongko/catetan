@@ -15,11 +15,10 @@ import AddNotesPage from './pages/AddNotesPage';
 
 // Data
 import { getAllNotes } from './utils/local-data';
-import EditNotesWrapper from './pages/EditNotesPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { getUserLogged, putAccessToken } from './utils/network-data';
-import { ThemeProvider } from './contexts/ThemeContext';
+import LoadingSpinner from './components/loading/LoadingSpinner';
 
 const AppWrapper = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -40,7 +39,6 @@ class App extends Component {
 			notes: getAllNotes(),
 			search: props.defaultKeyword || '',
 			authedUser: null,
-			initializing: true,
 		}
 		autoBind(this);
 	}
@@ -109,49 +107,45 @@ class App extends Component {
 			}
 		} = this;
 
-		if (this.state.initializing) {
-			return null;
-		}
-
 		return (
 			<main className='h-screen container-fluid flex flex-col dark:bg-dark-primary dark:text-white'>
-					<Header logout={onLogout} name={(authedUser ? authedUser.name : '')} />
-					<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0 grow'>
-						<Routes>
-							{(this.state.authedUser === null) && (
-								<>
-									<Route path='*' element={<Navigate to='/login' />} />
-									<Route path='/login' element={<LoginPage loginSuccess={onLoginSuccess} />} />
-									<Route path='/register' element={<RegisterPage />} />
-								</>
-							)}
+				<Header logout={onLogout} name={(authedUser ? authedUser.name : '')} />
+				<section className='w-full md:w-2/3 flex justify-center mx-auto my-5 px-6 md:px-0 grow'>
+					<Routes>
+						{(this.state.authedUser === null) && (
+							<>
+								<Route path='*' element={<Navigate to='/login' />} />
+								<Route path='/login' element={<LoginPage loginSuccess={onLoginSuccess} />} />
+								<Route path='/register' element={<RegisterPage />} />
+							</>
+						)}
 
-							{(this.state.authedUser !== null) && (
-								<>
-									<Route path='/' element={<Navigate to='/notes' />} />
-									<Route path='/login' element={<Navigate to='/notes' />} />
-									<Route path='/notes' element={
-										<ListNotesPage
-											onSearchEventHandler={onSearchEventHandler}
-											onKeywordChangeEventHandler={onKeywordEventHandler}
-											notes={notes}
-											search={search}
-										/>
-									} />
-									<Route path='/notes/:id' element={<DetailsNotesPage />} />
-									<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
+						{(this.state.authedUser !== null) && (
+							<>
+								<Route path='/' element={<Navigate to='/notes' />} />
+								<Route path='/login' element={<Navigate to='/notes' />} />
+								<Route path='/notes' element={
+									<ListNotesPage
+										onSearchEventHandler={onSearchEventHandler}
+										onKeywordChangeEventHandler={onKeywordEventHandler}
+										notes={notes}
+										search={search}
+									/>
+								} />
+								<Route path='/notes/:id' element={<DetailsNotesPage />} />
+								<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
 
-									{/* Tidak tersedia API update notes */}
-									{/* <Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} /> */}
-									<Route path='*' element={<Navigate to='/not-found' />} />
-									<Route path='/not-found' element={<NoMatchPage />} />
-								</>
-							)}
+								{/* Tidak tersedia API update notes */}
+								{/* <Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} /> */}
+								<Route path='*' element={<Navigate to='/not-found' />} />
+								<Route path='/not-found' element={<NoMatchPage />} />
+							</>
+						)}
 
-						</Routes>
-					</section>
-					<Footer />
-				</main>
+					</Routes>
+				</section>
+				<Footer />
+			</main>
 		)
 	}
 }
