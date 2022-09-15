@@ -31,7 +31,9 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordCh
     if(isArchived) {
       unarchiveNote(id)
     }
-    archiveNote(id)
+    else{
+      archiveNote(id)
+    }
 
     getArchivedNotes().then(({ data }) => {
       setArchivedNotes(data);
