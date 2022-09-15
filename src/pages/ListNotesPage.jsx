@@ -8,6 +8,7 @@ import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
 import { archiveNote, deleteNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
+import Swal from 'sweetalert2'
 
 const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, search }) => {
   const [activeNotes, setActiveNotes] = useState([])
@@ -58,7 +59,20 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
   }
 
   const onDeleteEventHandler = (id) => {
-    deleteNote(id).then(response => { 
+    deleteNote(id).then(() => { 
+      Swal.fire({
+        title: 'Success!',
+        text: 'The note was deleted',
+        icon: 'success',
+        timer: 1500,
+        width: '16em',
+        timerProgressBar: true,
+        showConfirmButton: false,
+        backdrop: false,
+        position: 'top-end',
+        toast: true
+      })
+
       getArchivedNotes().then(({ data }) => {
         setArchivedNotes(data);
       })
