@@ -187,8 +187,6 @@ class App extends Component {
 								<Route path='/notes' element={
 									<ListNotesPage
 										onSearchEventHandler={onSearchEventHandler}
-										onDeleteEventHandler={onDeleteEventHandler}
-										onArchiveEventHandler={onArchiveEventHandler}
 										onKeywordChangeEventHandler={onKeywordEventHandler}
 										notes={notes}
 										search={search}
@@ -196,7 +194,9 @@ class App extends Component {
 								} />
 								<Route path='/notes/:id' element={<DetailsNotesPage/>} />
 								<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
-								<Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} />
+
+								{/* Tidak tersedia API update notes */}
+								{/* <Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} /> */}
 								<Route path='*' element={<Navigate to='/not-found' />} />
 								<Route path='/not-found' element={<NoMatchPage />} />
 							</>

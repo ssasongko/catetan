@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
-import { archiveNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
+import { archiveNote, deleteNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
 
-const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordChangeEventHandler, search }) => {
+const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, search }) => {
   const [activeNotes, setActiveNotes] = useState([])
   const [archivedNotes, setArchivedNotes] = useState([])
 
@@ -29,11 +29,24 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordCh
   // i think this is not the best practice
   const onArchiveEventHandler = (id, isArchived) => {
     if(isArchived) {
-      unarchiveNote(id)
+      unarchiveNote(id).then(response => {
+        getArchivedNotes().then(({ data }) => {
+          setArchivedNotes(data);
+        })
+        getActiveNotes().then(({ data }) => {
+          setActiveNotes(data);
+        })
+      }).catch(error => console.error(error))
+      return
     }
-    else{
-      archiveNote(id)
-    }
+    archiveNote(id).then(response => {
+      getArchivedNotes().then(({ data }) => {
+        setArchivedNotes(data);
+      })
+      getActiveNotes().then(({ data }) => {
+        setActiveNotes(data);
+      })
+    }).catch(error => console.error(error))
 
     getArchivedNotes().then(({ data }) => {
       setArchivedNotes(data);
@@ -42,6 +55,17 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordCh
     getActiveNotes().then(({ data }) => {
       setActiveNotes(data);
     })
+  }
+
+  const onDeleteEventHandler = (id) => {
+    deleteNote(id).then(response => { 
+      getArchivedNotes().then(({ data }) => {
+        setArchivedNotes(data);
+      })
+      getActiveNotes().then(({ data }) => {
+        setActiveNotes(data);
+      })
+    }).catch(error => console.error(error))
   }
 
   return (
@@ -73,10 +97,7 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordCh
 
 ListNotesPage.propTypes = {
   onSearchEventHandler: PropTypes.func.isRequired,
-  onDeleteEventHandler: PropTypes.func.isRequired,
-  // onArchiveEventHandler: PropTypes.func.isRequired,
   onKeywordChangeEventHandler: PropTypes.func.isRequired,
-  // notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   search: PropTypes.string.isRequired
 }
 

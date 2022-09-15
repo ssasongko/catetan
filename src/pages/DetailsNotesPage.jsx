@@ -36,9 +36,10 @@ const DetailsNotesPage = () => {
           <div className='flex justify-between items-center'>
             <Heading text='Note Detail' />
 
-            <Link to={`/notes/${note.id}/edit`} className='items-center border-2 p-2 bg-primary'>
+          {/* Tidak tersedia API update notes */}
+            {/* <Link to={`/notes/${note.id}/edit`} className='items-center border-2 p-2 bg-primary'>
               <span>Edit Notes</span>
-            </Link>
+            </Link> */}
           </div>
 
           <div className='note-item flex flex-col'>
@@ -49,8 +50,7 @@ const DetailsNotesPage = () => {
               <h3 className='note-item__title font-bold'>{note.title}</h3>
               <span className='note-item__date'>{showFormattedDate(note.createdAt)}</span>
               <div className='mt-3'>
-                { note.body }
-                {/* {parser(note.body)} */}
+                {parser(String(note.body))}
               </div>
             </div>
           </div>
@@ -58,9 +58,9 @@ const DetailsNotesPage = () => {
       }
 
       {/* if note was not found */}
-      {/* {!note &&
+      {!note &&
         <p className='text-2xl mb-5'>The note was not found, could be deleted ?</p>
-      } */}
+      }
 
       <AnchorText navigateTo='/' text={`<-- Back to Home`} />
     </div>
