@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const ArchiveButton = ({ id, onArchive, isArchived }) => {
-	return <button className='note-item__archive-button' onClick={() => { onArchive(id, !isArchived) }}>{isArchived ? 'Active' : 'Archived'}</button>
+	if(isArchived){}
+
+	return <button className='note-item__archive-button' onClick={() => { onArchive(id, isArchived) }}>{isArchived ? 'Active' : 'Archived'}</button>
 }
 
 ArchiveButton.propTypes = {

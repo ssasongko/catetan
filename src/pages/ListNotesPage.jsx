@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -7,22 +7,41 @@ import PropTypes from 'prop-types'
 import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
-import { getActiveNotes, getArchivedNotes } from '../utils/network-data'
+import { archiveNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
 
-const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, onKeywordChangeEventHandler, search }) => {
+const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onKeywordChangeEventHandler, search }) => {
   const [activeNotes, setActiveNotes] = useState([])
   const [archivedNotes, setArchivedNotes] = useState([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     getActiveNotes().then(({ data }) => {
       setActiveNotes(data);
-    });
+    })
+  }, []);
+
+  useEffect(() => {
+    getArchivedNotes().then(({ data }) => {
+      setArchivedNotes(data);
+    })
+  }, [])
+
+
+  // i think this is not the best practice
+  const onArchiveEventHandler = (id, isArchived) => {
+    if(isArchived) {
+      unarchiveNote(id)
+    }
+    archiveNote(id)
 
     getArchivedNotes().then(({ data }) => {
       setArchivedNotes(data);
-    });
+    })
 
-  }, []);
+    getActiveNotes().then(({ data }) => {
+      setActiveNotes(data);
+    })
+  }
+
   return (
     // <></>
     <article className='w-full flex flex-col gap-5 flex-wrap'>
@@ -53,7 +72,7 @@ const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEv
 ListNotesPage.propTypes = {
   onSearchEventHandler: PropTypes.func.isRequired,
   onDeleteEventHandler: PropTypes.func.isRequired,
-  onArchiveEventHandler: PropTypes.func.isRequired,
+  // onArchiveEventHandler: PropTypes.func.isRequired,
   onKeywordChangeEventHandler: PropTypes.func.isRequired,
   // notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   search: PropTypes.string.isRequired

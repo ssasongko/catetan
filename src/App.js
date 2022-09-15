@@ -71,17 +71,17 @@ class App extends Component {
 		this.setState({ notes: filtered });
 	}
 
-	onArchiveEventHandler(id, isArchived) {
-		const { notes } = this.state;
-		const index = notes.findIndex((note) => note.id === id);
-		const archived = isArchived;
+	// onArchiveEventHandler(id, isArchived) {
+	// 	const { notes } = this.state;
+	// 	const index = notes.findIndex((note) => note.id === id);
+	// 	const archived = isArchived;
 
-		notes[index] = {
-			...notes[index],
-			archived
-		}
-		this.setState({ notes });
-	}
+	// 	notes[index] = {
+	// 		...notes[index],
+	// 		archived
+	// 	}
+	// 	this.setState({ notes });
+	// }
 
 	onAddNotesEventHandler({ title, content }) {
 		const date = new Date();
