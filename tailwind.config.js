@@ -11,7 +11,8 @@ module.exports = {
         lightgray: '#CCCCCC',
         danger: '#D2001A',
         dark: {
-          primary: '#0F172A'
+          primary: '#0F172A',
+          button: '#6366F1'
         },
         test: '#0F172A'
       },

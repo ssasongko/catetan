@@ -20,7 +20,7 @@ class NotesItem extends Component {
 		} = this;
 
 		return (
-			<div className='note-item max-h-[300px] flex flex-col'>
+			<div className='note-item max-h-[300px] flex flex-col dark:bg-dark-primary'>
 				<div className='p-6 note-item__content overflow-auto'>
 					<Link to={`/notes/${note.id}`}>
 						<h3 className='note-item__title font-bold'>{note.title}</h3>

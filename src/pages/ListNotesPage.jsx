@@ -100,7 +100,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
 
   return (
     <article className='w-full flex flex-col gap-5 flex-wrap'>
-      <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
+      <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary dark:bg-dark-button'>
         <span>{(locale === 'id' ? 'Tambahkan Note Baru' : 'Add New Notes')}</span>
       </Link>
       <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} placeholder={(locale === 'id' ? 'Cari note' : 'Find your notes here....')} />

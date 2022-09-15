@@ -20,7 +20,7 @@ class Tab extends Component {
 		let className = 'mb-[-2px] p-1 px-3';
 
 		if (activeTab === label) {
-			className += ' tab-list-active';
+			className += ' tab-list-active dark:bg-dark-button';
 		}
 
 		return (
