@@ -1,3 +1,6 @@
+// *
+// * Halaman ini tidak digunakan karena API Edit Notes tidak tersedia
+
 // Packages
 import React, { Component } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';

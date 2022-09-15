@@ -6,7 +6,7 @@ const InputTitle = ({ value, onChangeValue, isError }) => {
 
   return (
     <>
-      <input className={`w-full border-2 mt-1 p-1 note-create__title-input border-[#aaa] ${(isError) ? '' : 'border-2 border-danger'}`} type='text' onChange={onChangeValue} value={value} />
+      <input className={`w-full border-2 mt-1 p-1 note-create__title-input border-[#aaa] bg-white dark:bg-dark-primary ${(isError) ? '' : 'border-2 border-danger'}`} type='text' onChange={onChangeValue} value={value} />
     </>
   )
 }
