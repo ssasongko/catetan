@@ -1,5 +1,5 @@
 // Packages
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -7,12 +7,24 @@ import PropTypes from 'prop-types'
 import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
+import { getActiveNotes, getArchivedNotes } from '../utils/network-data'
 
-const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, onKeywordChangeEventHandler, notes, search}) => {
-  const archivedNotes = notes.filter(note => (note.archived === true));
-	const activeNotes = notes.filter(note => (note.archived === false));
+const ListNotesPage = ({ onSearchEventHandler, onDeleteEventHandler, onArchiveEventHandler, onKeywordChangeEventHandler, search }) => {
+  const [activeNotes, setActiveNotes] = useState([])
+  const [archivedNotes, setArchivedNotes] = useState([])
 
+  React.useEffect(() => {
+    getActiveNotes().then(({ data }) => {
+      setActiveNotes(data);
+    });
+
+    getArchivedNotes().then(({ data }) => {
+      setArchivedNotes(data);
+    });
+
+  }, []);
   return (
+    // <></>
     <article className='w-full flex flex-col gap-5 flex-wrap'>
       <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
         <span>Add New Notes</span>
@@ -43,7 +55,7 @@ ListNotesPage.propTypes = {
   onDeleteEventHandler: PropTypes.func.isRequired,
   onArchiveEventHandler: PropTypes.func.isRequired,
   onKeywordChangeEventHandler: PropTypes.func.isRequired,
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   search: PropTypes.string.isRequired
 }
 

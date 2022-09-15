@@ -194,7 +194,7 @@ class App extends Component {
 										search={search}
 									/>
 								} />
-								<Route path='/notes/:id' element={<DetailsNotesPage onFindNoteHandler={onFindNoteHandler} />} />
+								<Route path='/notes/:id' element={<DetailsNotesPage/>} />
 								<Route path='/notes/new' element={<AddNotesPage onAddNotes={onAddNotesEventHandler} />} />
 								<Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} />
 								<Route path='*' element={<Navigate to='/not-found' />} />
