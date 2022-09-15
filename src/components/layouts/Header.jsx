@@ -21,9 +21,9 @@ const Header = ({ logout, name }) => {
         </Link>
 
 
-        <div className="flex items-center gap-x-6 ">
+        <div className="flex items-center gap-x-1 md:gap-x-6 ">
 
-          {/* Loclae */}
+          {/* Locale */}
           <button onClick={() => setLocale(locale === 'id' ? 'en' : 'id')}>{locale}</button>
 
           <span>|</span>

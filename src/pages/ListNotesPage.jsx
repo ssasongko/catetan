@@ -112,7 +112,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
               : (locale === 'id' ? 'Note kosong' : 'Note is empty')
           }
         </div>
-        <div label={(locale === 'id' ? 'Arsip' : 'Archived')}>
+        <div label='Archived'>
           {
             (archivedNotes.length > 0)
               ? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
