@@ -1,5 +1,5 @@
 // Packages
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types'
@@ -12,117 +12,71 @@ import InputDate from '../components/notes/InputDate';
 import Heading from '../components/notes/Heading';
 import InputTitle from '../components/notes/InputTitle';
 import AnchorText from '../components/notes/AnchorText';
+import { addNote } from '../utils/network-data';
 
-const AddNotesPageWrapper = ({ onAddNotes }) => {
+const AddNotesPage = () => {
   const navigate = useNavigate();
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [titleMaxLength, setTitleMaxLength] = useState(50)
+  const [titleCount, setTitleCount] = useState(50)
+  const [boolTitle, setBoolTitle] = useState(true)
+  const [boolContent, setBoolContent] = useState(true)
 
-  return <AddNotesPage navigate={navigate} onAddNotes={onAddNotes} />
-}
-
-class AddNotesPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      content: '',
-      titleMaxLength: 50,
-      titleCount: 50,
-      boolTitle: true,
-      boolContent: true,
-    }
-
-    autoBind(this);
-  }
-
-  onTitleChangeEventHandler(event) {
-    const { state: { titleMaxLength } } = this;
-
+  const onTitleChangeEventHandler = (event) =>  {
     let val = event.target.value.slice(0, titleMaxLength)
 
-    this.setState({
-      title: val,
-      titleCount: titleMaxLength - val.length,
-      boolTitle: val !== ''
-    });
+    setTitle(val)
+    setTitleCount(titleMaxLength - val.length)
+    setBoolTitle(val !== '')
   }
 
-  onContentChangeEventHandler(event) {
+  const onContentChangeEventHandler = (event) => {
     let val = event.target.value;
 
-    this.setState({
-      content: val,
-      boolContent: val !== ''
-    });
+    setContent(val)
+    setBoolContent(val !== '')
   }
 
-  onSubmitEventHandler(event) {
-    event.preventDefault();
-
-    const { state: { title, content, titleMaxLength }, props: { onAddNotes, navigate } } = this;
+  const onSubmitEventHandler = (event) => {
+    event.preventDefault()
 
     if (title === '' || content === '') {
-      this.setState({
-        boolTitle: title !== '',
-        boolContent: content !== ''
-      });
+        setBoolTitle(title !== '')
+        setBoolContent(content !== '')
       return;
     }
 
-    onAddNotes({ title, content });
-
-    this.setState({
-      title: '',
-      content: '',
-      titleCount: titleMaxLength
-    });
+    addNote({title, body: content})
 
     navigate('/')
   }
 
-  render() {
-    const {
-      onSubmitEventHandler,
-      onTitleChangeEventHandler,
-      onContentChangeEventHandler,
-      state: {
-        title,
-        content,
-        titleCount,
-        boolTitle,
-        boolContent,
-      }
-    } = this;
+  return (
+    <div className='w-full note-create border-2 border-[#aaa] p-6'>
+      <form className='mb-3' onSubmit={onSubmitEventHandler}>
+        <Heading text='Create a Note' />
 
-    return (
-      <div className='w-full note-create border-2 border-[#aaa] p-6'>
-        <form className='mb-3' onSubmit={onSubmitEventHandler}>
-          <Heading text='Create a Note' />
-
-          <div className='mt-5'>
-            <div className='flex justify-between items-center'>
-              <label>Title:</label>
-              <RemainingChars titleCount={titleCount} />
-            </div>
-            <InputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
-            <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
+        <div className='mt-5'>
+          <div className='flex justify-between items-center'>
+            <label>Title:</label>
+            <RemainingChars titleCount={titleCount} />
           </div>
+          <InputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
+          <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
+        </div>
 
-          <div className='mt-5'>
-            <label>Notes: </label>
-            <InputDate value={content} onChangeValue={onContentChangeEventHandler} isError={boolContent} />
-            <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
-          </div>
+        <div className='mt-5'>
+          <label>Notes: </label>
+          <InputDate value={content} onChangeValue={onContentChangeEventHandler} isError={boolContent} />
+          <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
+        </div>
 
-          <Button text='Submit' />
-        </form>
-        <AnchorText navigateTo='/' text={`<-- Back to Home`} />
-      </div>
-    )
-  }
+        <Button text='Submit' />
+      </form>
+      <AnchorText navigateTo='/' text={`<-- Back to Home`} />
+    </div>
+  )
 }
 
-AddNotesPageWrapper.propTypes = {
-  onAddNotes: PropTypes.func.isRequired,
-}
-
-export default AddNotesPageWrapper;
+export default AddNotesPage
