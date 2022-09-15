@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const BASE_URL = 'https://notes-api.dicoding.dev/v1';
 
 function getAccessToken() {
@@ -30,10 +32,25 @@ async function login({ email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    Swal.fire({
+      title: 'Error!',
+      text: responseJson.message,
+      icon: 'error',
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false
+    })
     return { error: true, data: null };
   }
 
+  Swal.fire({
+    title: 'Success!',
+    text: responseJson.message,
+    icon: 'success',
+    timer: 1500,
+    timerProgressBar: true,
+    showConfirmButton: false
+  })
   return { error: false, data: responseJson.data };
 }
 
@@ -49,12 +66,28 @@ async function register({ name, email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    return { 
+    Swal.fire({
+      title: 'Error!',
+      text: responseJson.message,
+      icon: 'error',
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false
+    })
+    return {
       message: responseJson.message,
-      error: true 
+      error: true
     };
   }
 
+  Swal.fire({
+    title: 'Success!',
+    text: responseJson.message,
+    icon: 'success',
+    timer: 1500,
+    timerProgressBar: true,
+    showConfirmButton: false
+  })
   return { message: responseJson.message, error: false };
 }
 
