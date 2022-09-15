@@ -41,20 +41,7 @@ class App extends Component {
 			search: props.defaultKeyword || '',
 			authedUser: null,
 			initializing: true,
-			theme: {
-				theme: localStorage.getItem('theme') || 'light',
-				toggleTheme: () => {
-					this.setState((prevState) => {
-						const newTheme = prevState.theme.theme === 'light' ? 'dark' : 'light';
-						localStorage.setItem('theme', newTheme);
-						return {
-							theme: {...prevState.theme, theme: newTheme}
-						};
-					})
-				}
-			}
 		}
-
 		autoBind(this);
 	}
 
@@ -119,7 +106,6 @@ class App extends Component {
 				notes,
 				search,
 				authedUser,
-				theme
 			}
 		} = this;
 

@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types'
 
-const ArchiveButton = ({ id, onArchive, isArchived }) => {
-	if(isArchived){}
+// Context
+import LocaleContext from '../../contexts/LocaleContext';
 
-	return <button className='note-item__archive-button' onClick={() => { onArchive(id, isArchived) }}>{isArchived ? 'Active' : 'Archived'}</button>
+const ArchiveButton = ({ id, onArchive, isArchived }) => {
+
+	const { locale } = useContext(LocaleContext)
+
+	return (
+		<>
+			{(locale === 'id') && (
+				<button className='note-item__archive-button' onClick={() => { onArchive(id, isArchived) }}>{isArchived ? 'Aktifkan' : 'Arsipkan'}</button>
+			)}
+
+			{(locale === 'en') && (
+				<button className='note-item__archive-button' onClick={() => { onArchive(id, isArchived) }}>{isArchived ? 'Active' : 'Archived'}</button>
+			)}
+		</>
+	)
 }
 
 ArchiveButton.propTypes = {

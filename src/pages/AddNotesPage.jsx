@@ -1,8 +1,14 @@
 // Packages
-import React, { Component, useState } from 'react'
+import React, { Component, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types'
+
+// API
+import { addNote } from '../utils/network-data';
+
+// Context
+import LocaleContext from '../contexts/LocaleContext';
 
 // Components
 import RemainingChars from '../components/notes/RemainingChars';
@@ -12,10 +18,11 @@ import InputDate from '../components/notes/InputDate';
 import Heading from '../components/notes/Heading';
 import InputTitle from '../components/notes/InputTitle';
 import AnchorText from '../components/notes/AnchorText';
-import { addNote } from '../utils/network-data';
 
 const AddNotesPage = () => {
   const navigate = useNavigate();
+  const { locale } = useContext(LocaleContext)
+
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [titleMaxLength, setTitleMaxLength] = useState(50)
@@ -55,26 +62,26 @@ const AddNotesPage = () => {
   return (
     <div className='w-full note-create border-2 border-[#aaa] p-6'>
       <form className='mb-3' onSubmit={onSubmitEventHandler}>
-        <Heading text='Create a Note' />
+        <Heading text={(locale === 'id' ? 'Tambahkan Note' : 'Add a Note')} />
 
         <div className='mt-5'>
           <div className='flex justify-between items-center'>
-            <label>Title:</label>
+            <label>{(locale === 'id' ? 'Judul' : 'Title')}</label>
             <RemainingChars titleCount={titleCount} />
           </div>
           <InputTitle value={title} onChangeValue={onTitleChangeEventHandler} isError={boolTitle} />
-          <NoteInvalidMessage isError={boolTitle} errorMessage={'This field is required'} />
+          <NoteInvalidMessage isError={boolTitle} errorMessage={(locale === 'id' ? 'Field wajib terisi' : 'This field is required')} />
         </div>
 
         <div className='mt-5'>
           <label>Notes: </label>
           <InputDate value={content} onChangeValue={onContentChangeEventHandler} isError={boolContent} />
-          <NoteInvalidMessage isError={boolContent} errorMessage={'This field is required'} />
+          <NoteInvalidMessage isError={boolContent} errorMessage={(locale === 'id' ? 'Field wajib terisi' : 'This field is required')} />
         </div>
 
         <Button text='Submit' />
       </form>
-      <AnchorText navigateTo='/' text={`<-- Back to Home`} />
+      <AnchorText navigateTo='/' text={(locale === 'id' ? '<-- Kembali ke Home' : '<-- Back to Home')} />
     </div>
   )
 }

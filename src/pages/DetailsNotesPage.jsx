@@ -1,8 +1,10 @@
 // Packages
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import parser from 'html-react-parser';
-import PropTypes from 'prop-types'
+
+// Context
+import LocaleContext from '../contexts/LocaleContext';
 
 // Utils
 import { showFormattedDate } from '../utils';
@@ -12,7 +14,9 @@ import { getNote } from '../utils/network-data';
 import Heading from '../components/notes/Heading';
 import AnchorText from '../components/notes/AnchorText';
 
+
 const DetailsNotesPage = () => {
+  const { locale } = useContext(LocaleContext)
 
   const [note, setNote] = useState({})
 
@@ -34,7 +38,7 @@ const DetailsNotesPage = () => {
       {note &&
         <>
           <div className='flex justify-between items-center'>
-            <Heading text='Note Detail' />
+          <Heading text={(locale === 'id' ? 'Detail Note' : 'Note Detail')} />
 
           {/* Tidak tersedia API update notes */}
             {/* <Link to={`/notes/${note.id}/edit`} className='items-center border-2 p-2 bg-primary'>
@@ -59,10 +63,10 @@ const DetailsNotesPage = () => {
 
       {/* if note was not found */}
       {!note &&
-        <p className='text-2xl mb-5'>The note was not found, could be deleted ?</p>
+        <p className='text-2xl mb-5'>{(locale === 'id' ? 'Note tidak ditemukan' : 'The note was not found, could be deleted ?')}</p>
       }
 
-      <AnchorText navigateTo='/' text={`<-- Back to Home`} />
+      <AnchorText navigateTo='/' text={(locale === 'id' ? '<-- Kembali ke Home' : '<-- Back to Home')} />
     </div>
   )
 }

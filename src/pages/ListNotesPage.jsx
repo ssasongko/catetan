@@ -1,16 +1,23 @@
 // Packages
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Swal from 'sweetalert2'
+
+// API
+import { archiveNote, deleteNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
+
+// Context
+import LocaleContext from '../contexts/LocaleContext'
 
 // Components
 import NotesList from '../components/notes/NotesList'
 import Search from '../components/notes/Search'
 import Tabs from '../components/notes/Tabs'
-import { archiveNote, deleteNote, getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data'
-import Swal from 'sweetalert2'
 
 const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, search }) => {
+  const { locale } = useContext(LocaleContext)
+
   const [activeNotes, setActiveNotes] = useState([])
   const [archivedNotes, setArchivedNotes] = useState([])
 
@@ -29,7 +36,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
 
   // i think this is not the best practice
   const onArchiveEventHandler = (id, isArchived) => {
-    if(isArchived) {
+    if (isArchived) {
       unarchiveNote(id).then(response => {
         getArchivedNotes().then(({ data }) => {
           setArchivedNotes(data);
@@ -59,7 +66,7 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
   }
 
   const onDeleteEventHandler = (id) => {
-    deleteNote(id).then(() => { 
+    deleteNote(id).then(() => {
       Swal.fire({
         title: 'Success!',
         text: 'The note was deleted',
@@ -85,22 +92,22 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
   return (
     <article className='w-full flex flex-col gap-5 flex-wrap'>
       <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
-        <span>Add New Notes</span>
+        <span>{(locale === 'id' ? 'Tambahkan Note Baru' : 'Add New Notes')}</span>
       </Link>
-      <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} />
+      <Search onSearch={onSearchEventHandler} onKeywordChange={onKeywordChangeEventHandler} search={search} placeholder={(locale === 'id' ? 'Cari note' : 'Find your notes here....')}/>
       <Tabs>
         <div label='Notes'>
           {
             (activeNotes.length > 0)
               ? <NotesList notes={activeNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-              : 'Note is empty'
+              : (locale === 'id' ? 'Note kosong' : 'Note is empty')
           }
         </div>
-        <div label='Archived'>
+        <div label={(locale === 'id' ? 'Arsip' : 'Archived')}>
           {
             (archivedNotes.length > 0)
               ? <NotesList notes={archivedNotes} onDelete={onDeleteEventHandler} onArchive={onArchiveEventHandler} search={search} />
-              : 'There is no archived note here'
+              : (locale === 'id' ? 'Tidak ada note yang diarsipkan' : 'There is no archived note here')
           }
         </div>
       </Tabs>

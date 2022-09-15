@@ -6,9 +6,7 @@ const ToggleTheme = () => {
   const { theme, setTheme } = useContext(ThemeContext)
 
   return (
-    <div className="transition duration-500 ease-in-out rounded-full p-2">
-      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'light' ? <FaMoon /> : <FaSun />}</button>
-    </div>
+    <button className="transition duration-500 ease-in-out rounded-full my-auto" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'light' ? <FaMoon /> : <FaSun />}</button>
   )
 }
 
