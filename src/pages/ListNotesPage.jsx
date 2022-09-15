@@ -83,7 +83,6 @@ const ListNotesPage = ({ onSearchEventHandler, onKeywordChangeEventHandler, sear
   }
 
   return (
-    // <></>
     <article className='w-full flex flex-col gap-5 flex-wrap'>
       <Link to='/notes/new' className='ml-auto flex gap-3 items-center border-2 p-2 bg-primary'>
         <span>Add New Notes</span>
