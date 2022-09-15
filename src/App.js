@@ -155,8 +155,8 @@ class App extends Component {
 
 							{/* Tidak tersedia API update notes */}
 							{/* <Route path='/notes/:id/edit' element={<EditNotesWrapper onFindNoteHandler={onFindNoteHandler} onEditNoteHandler={onEditNoteHandler} />} /> */}
-							<Route path='*' element={<Navigate to='/not-found' />} />
-							<Route path='/not-found' element={<NoMatchPage />} />
+							<Route path='*' element={<NoMatchPage />} />
+							{/* <Route path='/not-found' element={<NoMatchPage />} /> */}
 						</>
 					</Routes>
 				</section>
